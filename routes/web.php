@@ -18,6 +18,7 @@ Route::get('/login',function(){
     return view('login');
 })->name('login');
 Route::post('/login','AdminController@login');
+Route::get('/cobaApi','ApiAll@pelayanan');
 
 Route::group(['middleware' => ['sesi']], function () {
     Route::get('/logout','AdminController@keluar')->name('keluar');

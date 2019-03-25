@@ -9,6 +9,7 @@ use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
 use App\Sublayanan;
+use Datatables;
 
 class AdminController extends Controller
 {
@@ -254,4 +255,5 @@ class AdminController extends Controller
         ];
         return view('desa/pengaturan',$data);
     }
+ 
 }
