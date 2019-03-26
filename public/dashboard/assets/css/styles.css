@@ -2281,7 +2281,7 @@ table.dataTable thead td {
     display: inline-block;
     font-size: 15px;
     color: #fff;
-    background: #815ef6;
+    background: #007BFF;
     padding: 12px 19px;
     border-radius: 3px;
     text-transform: capitalize;
@@ -2321,7 +2321,7 @@ table.dataTable thead td {
 
 .login-form-head {
     text-align: center;
-    background: #8655FC;
+    background: #007BFF;
     padding: 50px;
 }
 
@@ -2359,7 +2359,7 @@ table.dataTable thead td {
 
 .form-gp.focused label {
     top: -15px;
-    color: #7e74ff;
+    color: #007BFF;
 }
 
 .form-gp input {

@@ -13,6 +13,15 @@ use Datatables;
 
 class AdminController extends Controller
 {
+    public function CustomValidation()
+    {
+        $pesan = [
+            'required'  => 'Form :attribute mohon untuk di isi dan tidak boleh kosong',
+            'numeric'   => 'Form :attribute harus di isi angka',
+            'email'     => 'Form :attribute sesuai dengan format Email contoh NamaAnda12@email.com',
+        ];
+        return $pesan;
+    }
     public function login(Request $request)
     {
         $username   =   $request['username'];
@@ -85,13 +94,11 @@ class AdminController extends Controller
     public function AkunAdmin()
     {
         $datas = Daerah::leftJoin('admins','daerahs.id','=','admins.daerah_id')->where('nama_daerah','<>','Pemalang')->get();
-        $sidebar  =   Pelayanan::get();
         $data = [
             'nama'      =>  session('nama'),
             'username'  =>  session('username'),
             'level'     =>  session('level'),
             'token'     =>  session('token'),
-            'sidebar'    =>  $sidebar,
             'akun'      =>  $datas
         ];
 
@@ -103,7 +110,7 @@ class AdminController extends Controller
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ]);
+        ],$this->CustomValidation());
         $nama   =   $request['nama'];
         $kontak  =   $request['kontak'];
         $email  =   $request['email'];

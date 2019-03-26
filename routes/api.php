@@ -18,3 +18,4 @@ use Illuminate\Http\Request;
 // });
 Route::get('/pelayananlist','ApiAll@pelayanan');
 Route::get('/desakelurahan','ApiAll@desakelurahan');
+Route::get('/akunpage','ApiAll@HalamanAkun');

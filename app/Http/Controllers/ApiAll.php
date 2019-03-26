@@ -21,6 +21,22 @@ class ApiAll extends Controller
         })->make(true);
         
     }
+    public function HalamanAkun()
+    {
+        $datas = Daerah::leftJoin('admins','daerahs.id','=','admins.daerah_id')->where('nama_daerah','<>','Pemalang')
+        ->select('daerahs.id as id','nama_daerah','kepala_daerah','username','nama','kontak','email')->get();
+        return DataTables::of($datas)
+        ->setRowId('id')
+        ->setRowClass('tombol')
+        ->addColumn('action',function($data){
+            if($data->username == null){
+                return "<a href='#add".$data->nama_daerah."'  class='btn btn-primary btn-sm' data-toggle='modal'>Tambah</a>";
+            }else{
+                return "<a href='#edit".$data->nama_daerah."' class='btn btn-warning btn-sm' data-toggle='modal'>Ubah</a>";
+            }
+        })
+        ->addIndexColumn()->make(true);
+    }
     public function desakelurahan()
     {
         $daerah = Daerah::get();

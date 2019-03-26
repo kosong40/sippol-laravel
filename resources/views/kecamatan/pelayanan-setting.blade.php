@@ -15,7 +15,8 @@
 
         <h2 align="center">{{$pelayanan['pelayanan']}}</h2>
         @if(count($sublayanan) == 0)
-        <h4>Hiya</h4>
+        <h4 align="center">Ubah Informasi Pelayanan</h4>
+         <textarea id="editor1" name="posting" rows="5" cols="80" required></textarea>
         @else
         <div class="row">
             <div class="col-sm-3">
@@ -38,13 +39,10 @@
 @endsection
  
 @section('js')
-<script src="{{url('adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
+<script src="{{ url('adminlte/bower_components/ckeditor/ckeditor.js') }}"></script>
 <script>
-    $(function () {
-        $('#layanan').DataTable();
-    });
-
+    CKEDITOR.replace('editor1');
+    CKEDITOR.replace('edit');
 </script>
 @endsection
  
