@@ -14,19 +14,68 @@
     <div class="container-fluid">
 
         <h2 align="center">{{$pelayanan['pelayanan']}}</h2>
+        <div style="margin:20px;">
+            <center>
+            <button class="btn btn-warning" id="tombol-edit">Ubah Informasi</button>
+            <button class="btn btn-danger" id="tombol-tutup">Tutup Form</button>
+            </center>
+        </div>
         @if(count($sublayanan) == 0)
-        <h4 align="center">Ubah Informasi Pelayanan</h4>
-         <textarea id="editor1" name="posting" rows="5" cols="80" required></textarea>
+        <div style="margin:20px;">
+            <center>
+            <button class="btn btn-warning" id="tombol-edit">Ubah Informasi</button>
+            <button class="btn btn-danger" id="tombol-tutup">Tutup Form</button>
+            </center>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div id="info" class="col-sm-6 col-md-6">
+                    
+                    <div class="thumbnail">
+                        <h3 align="center">Informasi</h3>
+                        {!!$pelayanan->keterangan!!}
+                    </div>
+                </div>
+                <div id="form" class="col-sm-6 col-md-6">
+                    <h4 align="center">Ubah Informasi Pelayanan</h4>
+                    
+                    <form action="{{url('/kecamatan/pelayanan/ubah/'.$pelayanan->slug)}}" method="post">
+                        <textarea id="editor1" name="posting" rows="10" cols="80" required>{!!$pelayanan->keterangan!!}</textarea>
+                        @csrf
+                        <input type="submit" value="Simpan" class="form-control btn btn-danger">
+                    </form>
+                </div>
+            </div>
+        </div>
         @else
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-2">
                 <ul class="list-group">
                     @foreach ($sublayanan as $item)
                     <li class="list-group-item"><a href="{{url('kecamatan/pelayanan/'.$pelayanan['slug'].'/'.$item['slug'])}}">{{$item['subpelayanan']}}</a></li>
                     @endforeach
                 </ul>
             </div>
-            <div class="col-sm-9"></div>
+            <div class="col-sm-10">
+                <div class="row">
+                   <div id="info" class="col-sm-6 col-md-6">
+                    
+                    <div class="thumbnail">
+                        <h3 align="center">Informasi</h3>
+                        {!!$pelayanan->keterangan!!}
+                    </div>
+                </div>        
+                    <div id="form" class="col-sm-6 col-md-6">
+                    <h4 align="center">Ubah Informasi Pelayanan</h4>
+                    
+                    <form action="{{url('/kecamatan/pelayanan/ubah/'.$pelayanan->slug)}}" method="post">
+                        <textarea id="editor1" name="posting" rows="10" cols="80" required>{!!$pelayanan->keterangan!!}</textarea>
+                        @csrf
+                        <input type="submit" value="Simpan" class="form-control btn btn-danger">
+                    </form>
+                </div>
+                </div>
+            </div>
         </div>
         @endif
     </div>
@@ -42,7 +91,18 @@
 <script src="{{ url('adminlte/bower_components/ckeditor/ckeditor.js') }}"></script>
 <script>
     CKEDITOR.replace('editor1');
-    CKEDITOR.replace('edit');
+    $("#form").hide('true');
+    $("#tombol-tutup").hide('true');
+    $("#tombol-edit").click(function(){
+        $("#form").show('true');
+        $("#tombol-tutup").show('true');
+        $("#tombol-edit").hide("true")
+    });
+    $("#tombol-tutup").click(function(){
+        $("#tombol-edit").show("true")
+        $("#form").hide('true');
+        $("#tombol-tutup").hide("true")
+    })
 </script>
 @endsection
  

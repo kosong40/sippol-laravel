@@ -43,7 +43,7 @@ class CreateAllTable extends Migration
             $table->increments('id');
             $table->string('pelayanan');
             $table->string('jenis_pelayanan');
-            $table->text('keterangan')->nullable();
+            $table->longText('keterangan')->nullable();
             $table->string('slug');
         });
         Schema::create('sublayanans', function (Blueprint $table) {

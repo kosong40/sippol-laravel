@@ -31,6 +31,7 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/layanan','AdminController@dataPelayanan');
         Route::get('/layanan/{slug}','AdminController@dataLayanan');
         Route::get('/pelayanan','AdminController@pelayanan');
+        Route::post('/pelayanan/ubah/{slug}','AdminController@ubahKetPelayanan');
         Route::get('/pelayanan/{slug}','AdminController@setPelayanan');
         Route::get('/pelayanan/{slug}/{slug2}','AdminController@setSublayanan');
     });

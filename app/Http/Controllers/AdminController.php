@@ -188,6 +188,13 @@ class AdminController extends Controller
         ];
         return view('kecamatan/pelayanan-setting',$data);
     }
+    public function ubahKetPelayanan($slug, Request $request)
+    {
+        $pelayanan = Pelayanan::where('slug',$slug)->update([
+            'keterangan' => $request['posting']
+        ]);
+        return redirect()->back()->with('sukses','Berhasil mengubah keterangan');
+    }
     public function dataPelayanan()
     {
         $pelayanan = Pelayanan::get();
