@@ -86,7 +86,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav-text"><span class="fa fa-wrench"></span>&nbsp;Pengaturan<span class="caret"></span></span></a>
                 <ul class="dropdown-menu" role="menu">
                   <li><a href="{{url('kecamatan/pelayanan')}}"><i class="fa fa-circle-o"></i> Pelayanan</a></li>
-                  <li><a href=""><i class="fa fa-circle-o"></i> Profil</a></li>
+                  <li><a href="{{url('kecamatan/profil')}}"><i class="fa fa-circle-o"></i> Profil</a></li>
                 </ul>
               </li>
               <li class="dropdown">

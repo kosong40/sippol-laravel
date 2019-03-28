@@ -30,8 +30,10 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/akun/resetpass/{username}','AdminController@resetPass');
         Route::get('/layanan','AdminController@dataPelayanan');
         Route::get('/layanan/{slug}','AdminController@dataLayanan');
+        Route::get('/profil','AdminController@ubahDataAdmin');
         Route::get('/pelayanan','AdminController@pelayanan');
         Route::post('/pelayanan/ubah/{slug}','AdminController@ubahKetPelayanan');
+        Route::post('/sublayanan/ubah/{slug}','AdminController@ubahKetSublayanan');
         Route::get('/pelayanan/{slug}','AdminController@setPelayanan');
         Route::get('/pelayanan/{slug}/{slug2}','AdminController@setSublayanan');
     });

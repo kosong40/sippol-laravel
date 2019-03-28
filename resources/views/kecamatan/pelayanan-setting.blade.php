@@ -21,17 +21,12 @@
             </center>
         </div>
         @if(count($sublayanan) == 0)
-        <div style="margin:20px;">
-            <center>
-            <button class="btn btn-warning" id="tombol-edit">Ubah Informasi</button>
-            <button class="btn btn-danger" id="tombol-tutup">Tutup Form</button>
-            </center>
-        </div>
+        
         <div class="container-fluid">
             <div class="row">
                 <div id="info" class="col-sm-6 col-md-6">
                     
-                    <div class="thumbnail">
+                    <div >
                         <h3 align="center">Informasi</h3>
                         {!!$pelayanan->keterangan!!}
                     </div>
@@ -56,16 +51,15 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="col-sm-10">
-                <div class="row">
-                   <div id="info" class="col-sm-6 col-md-6">
-                    
-                    <div class="thumbnail">
+            <div id="info" class="col-sm-5">
+                <div style="margin:20px;">
+                    <div >
                         <h3 align="center">Informasi</h3>
                         {!!$pelayanan->keterangan!!}
                     </div>
-                </div>        
-                    <div id="form" class="col-sm-6 col-md-6">
+                </div>
+            </div>   
+            <div id="form" class="col-sm-5">
                     <h4 align="center">Ubah Informasi Pelayanan</h4>
                     
                     <form action="{{url('/kecamatan/pelayanan/ubah/'.$pelayanan->slug)}}" method="post">
@@ -74,9 +68,7 @@
                         <input type="submit" value="Simpan" class="form-control btn btn-danger">
                     </form>
                 </div>
-                </div>
             </div>
-        </div>
         @endif
     </div>
 </div>

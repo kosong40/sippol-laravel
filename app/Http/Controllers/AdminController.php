@@ -195,6 +195,13 @@ class AdminController extends Controller
         ]);
         return redirect()->back()->with('sukses','Berhasil mengubah keterangan');
     }
+    public function ubahKetSublayanan($slug , Request $request)
+    {
+        $pelayanan = Sublayanan::where('slug',$slug)->update([
+            'keterangan' => $request['posting']
+        ]);
+        return redirect()->back()->with('sukses','Berhasil mengubah keterangan');
+    }
     public function dataPelayanan()
     {
         $pelayanan = Pelayanan::get();
@@ -241,6 +248,20 @@ class AdminController extends Controller
           'sidebar' =>  $sidebar,
       ];
       return view('kecamatan/data',$data);
+    }
+    public function ubahDataAdmin()
+    {
+        $sidebar  =   Pelayanan::get();
+        $pelayanan = Pelayanan::get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'sidebar' =>  $sidebar,
+            'pelayanan' =>  $pelayanan,
+        ];
+        return view('kecamatan/profil',$data);
     }
 
 
