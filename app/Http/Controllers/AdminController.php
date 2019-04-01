@@ -19,6 +19,8 @@ class AdminController extends Controller
             'required'  => 'Form :attribute mohon untuk di isi dan tidak boleh kosong',
             'numeric'   => 'Form :attribute harus di isi angka',
             'email'     => 'Form :attribute sesuai dengan format Email contoh NamaAnda12@email.com',
+            'min'       => 'Form :attribute minimal :min karakter',
+            'same'      => 'Form :attribute nilainya harus sama dengan form :other'
         ];
         return $pesan;
     }
@@ -249,46 +251,77 @@ class AdminController extends Controller
       ];
       return view('kecamatan/data',$data);
     }
+
     public function ubahDataAdmin()
     {
-        $sidebar  =   Pelayanan::get();
-        $pelayanan = Pelayanan::get();
+        $sidebar    =   Pelayanan::get();
+        $admin      =   Admin::where('username',session('username'))->get();
+        $daerah     =   Daerah::get();
         $data = [
             'nama'      =>  session('nama'),
             'username'  =>  session('username'),
             'level'     =>  session('level'),
             'token'     =>  session('token'),
-            'sidebar' =>  $sidebar,
-            'pelayanan' =>  $pelayanan,
+            'admin'     =>  $admin,
+            'daerah'    =>  $daerah
         ];
         return view('kecamatan/profil',$data);
     }
-
-
-    //DESA
-    public function homeDesa()
+    public function editAkunKecamatan(Request $request)
     {
-        $sidebar    =   Pelayanan::get();
-        $data = [
-            'nama'      =>  session('nama'),
-            'username'  =>  session('username'),
-            'level'     =>  session('level'),
-            'token'     =>  session('token'),
-            'sidebar' =>  $sidebar,
-        ];
-        return view('desa/beranda',$data);
+        $request->validate([
+            'nama' => 'required',
+            'kontak' => 'numeric|required',
+            'email' => 'email|required'
+        ],$this->CustomValidation());
+        Admin::where('username',$request['username'])->update([
+            'nama'      => $request['nama'],
+            'kontak'    => $request['kontak'],
+            'email'     =>  $request['email'],
+            'status'    => '0',
+            'remember_token' => '',
+            'updated_at' => now(+7.00)
+        ]);
+        session()->flush();
+        return redirect('/login');
     }
-    public function pagePengaturan()
+    public function editAkunKecamatanPass(Request $request)
     {
-        $sidebar    =   Pelayanan::get();
-        $data = [
-            'nama'      =>  session('nama'),
-            'username'  =>  session('username'),
-            'level'     =>  session('level'),
-            'token'     =>  session('token'),
-            'sidebar' =>  $sidebar,
-        ];
-        return view('desa/pengaturan',$data);
+        // dd($request->all());
+        $admin      =   Admin::where('username',session('username'))->get();
+        $request->validate([
+            'passlama'  => 'required',
+            'passbaru'  => 'required|min:8',
+            'passulang' =>  'required|min:8|same:passbaru'
+        ],$this->CustomValidation());
+
+        foreach($admin as $admin){
+            if(Hash::check($request['passlama'], $admin->password)){
+               Admin::where('username',session('username'))->update([
+                'password'     =>  bcrypt($request['passbaru']),
+                'status'    => '0',
+                'remember_token' => '',
+                'updated_at' => now(+7.00)
+               ]);
+               session()->flush();
+                return redirect('/login');
+            }else{
+                return redirect()->back()->with('gagal','Password lama anda salah');
+            }
+        }
     }
+    public function editInfoKecamatan($id,Request $request)
+    {
+        $request->validate([
+            'camat'  => 'required',
+            'nip'   =>  'required|numeric'
+        ],$this->CustomValidation());
+        Daerah::where('id',$id)->update([
+            'kepala_daerah' => $request['camat'],
+            'nip'           =>  $request['nip']
+        ]);
+        return redirect()->back()->with('sukses','Berhasil mengubah informasi Kecamatan');
+    }
+
  
 }

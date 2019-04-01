@@ -36,10 +36,13 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::post('/sublayanan/ubah/{slug}','AdminController@ubahKetSublayanan');
         Route::get('/pelayanan/{slug}','AdminController@setPelayanan');
         Route::get('/pelayanan/{slug}/{slug2}','AdminController@setSublayanan');
+        Route::post('/profil/akun','AdminController@editAkunKecamatan');
+        Route::post('/profil/password','AdminController@editAkunKecamatanPass');
+        Route::post('/profil/info/{id}','AdminController@editInfoKecamatan');
     });
     Route::group(['prefix' => 'desa','middleware'=>'desa'], function () {
-        Route::get('/','AdminController@homeDesa');
-        Route::get('/pengaturan','AdminController@pagePengaturan');
+        Route::get('/','DesaController@homeDesa');
+        Route::get('/pengaturan','DesaController@pagePengaturan');
     });
 });
 

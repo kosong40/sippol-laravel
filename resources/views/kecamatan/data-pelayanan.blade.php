@@ -10,19 +10,18 @@
         </section>
     </div>
     <div class="container-fluid">
-        <div class="row">
+    <div class="row">
+    <div class="col-sm-9"></div>
+    <div class="col-sm-3">
+    <ul class="list-group">
+        <li class="list-group-item active">Daftar Pelayanan</li>
         @foreach ($pelayanan as $item)
-            <div class="col-lg-4 col-xs-6">
-                <div class="small-box bg-red">
-                    <div class="inner">
-                        <h4 align="center">{{$item['pelayanan']}}</h4>
-                        <h5 align="center">Total data :</h5>
-                    </div>
-                <a href="{{url('/kecamatan/layanan/'.$item['slug'])}}" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
-            </div>
-        
-        </div>
+            <li class="list-group-item"><a href="{{url('/kecamatan/layanan/'.$item['slug'])}}">{{$item->pelayanan}}</a></li>
         @endforeach
+    </ul>
+    </div>
+    
+    </div>
     </div>
 </div>
 </div>
