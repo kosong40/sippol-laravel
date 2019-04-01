@@ -26,9 +26,11 @@
             <div class="row">
                 <div id="info" class="col-sm-6 col-md-6">
                     
-                    <div >
-                        <h3 align="center">Informasi</h3>
-                        {!!$pelayanan->keterangan!!}
+                    <div class="box box-info" >
+                        <div class="box-body box-profile">
+                            <h3 align="center">Informasi</h3>
+                            {!!$pelayanan->keterangan!!}
+                        </div>
                     </div>
                 </div>
                 <div id="form" class="col-sm-6 col-md-6">
@@ -53,9 +55,11 @@
             </div>
             <div id="info" class="col-sm-5">
                 <div style="margin:20px;">
-                    <div >
-                        <h3 align="center">Informasi</h3>
-                        {!!$pelayanan->keterangan!!}
+                    <div class="box box-info">
+                         <div class="box-body box-profile">
+                            <h3 align="center">Informasi</h3>
+                            {!!$pelayanan->keterangan!!}
+                        </div>
                     </div>
                 </div>
             </div>   

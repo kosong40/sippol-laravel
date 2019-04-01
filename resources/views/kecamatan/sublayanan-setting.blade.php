@@ -20,11 +20,16 @@
             <button class="btn btn-warning" id="tombol-edit">Ubah Informasi</button>
             <button class="btn btn-danger" id="tombol-tutup">Tutup Form</button>
         </center>
+        <br>
         <div class="row">
             <div class="col-sm-6">
-                <h3 align="center">Informasi</h3>
-                {!!$pelayanan->keterangan!!}
-                {!!$item->keterangan!!}
+                 <div class="box box-info">
+                        <div class="box-body box-profile">
+                        <h3 align="center">Informasi</h3>
+                        {!!$pelayanan->keterangan!!}
+                        {!!$item->keterangan!!}
+                    </div>
+                </div>
             </div>
             <div id="form" class="col-sm-6">
                 <h3 align="center">Ubah Informasi Pelayanan</h3>
