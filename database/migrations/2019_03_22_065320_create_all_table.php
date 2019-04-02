@@ -55,25 +55,40 @@ class CreateAllTable extends Migration
             $table->foreign('id_pelayanan')->references('id')->on('pelayanans');
             $table->integer('id_pelayanan')->unsigned();
         });
-        Schema::create('berkas',function(Blueprint $table){
+
+        Schema::create('pemohons', function (Blueprint $table) {
             $table->Increments('id');
+            $table->string('nama');
+            $table->string('nik',16)->unique();
+            $table->string('telepon');
+            $table->string('pekerjaan');
+            $table->string('rt')->nullable();
+            $table->string('rw')->nullable();
+            $table->string('jalan')->nullable();
+            $table->Integer('daerah_id')->unsigned();
+            $table->foreign('daerah_id')->references('id')->on('daerahs');
             $table->Integer('pelayanan_id')->unsigned();
             $table->foreign('pelayanan_id')->references('id')->on('pelayanans');
             $table->timestamps();
         });
-        Schema::create('pemohons', function (Blueprint $table) {
+        Schema::create('izin-reklame',function(Blueprint $table){
             $table->Increments('id');
-            $table->string('nik')->unique();
-            $table->string('nama');
-            $table->string('telepon');
-            $table->string('rt');
-            $table->string('rw');
-            $table->string('desa');
-            $table->string('jalan')->nullable();
-            $table->Integer('admin_id')->unsigned();
-            $table->foreign('admin_id')->references('id')->on('admins');
-            $table->Integer('berkas_id')->unsigned();
-            $table->foreign('berkas_id')->references('id')->on('berkas');
+            $table->Integer('id_pemohon')->unsigned();
+            $table->foreign('id_pemohon')->references('id')->on('pemohons');
+            $table->string('jenis_reklame');
+            $table->Integer('banyak')->unsigned();
+            $table->string('pesan_produk');
+            $table->date('tanggal_awal');
+            $table->date('tanggal_akhir');
+            $table->string('tempat_reklame');
+            $table->string('scan_ktp');
+            $table->string('scan_npwp');
+            $table->string('contoh_reklame');
+            $table->string('scan_persetujuan');
+            $table->string('scan_izin_lama')->nullable();
+            $table->string('scan_pengantar');
+            $table->string('pesan')->nullable();
+            $table->string('status')->default('Belum');
             $table->timestamps();
         });
     }

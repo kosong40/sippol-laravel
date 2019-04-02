@@ -11,7 +11,9 @@
     </div>
     <div class="container-fluid">
     <div class="row">
-    <div class="col-sm-9"></div>
+    <div class="col-sm-9">
+       
+    </div>
     <div class="col-sm-3">
     <ul class="list-group">
         <li class="list-group-item active">Daftar Pelayanan</li>
@@ -19,7 +21,7 @@
             <li class="list-group-item"><a href="{{url('/kecamatan/layanan/'.$item['slug'])}}">{{$item->pelayanan}}</a></li>
         @endforeach
     </ul>
-    </div>
+    </div> {{-- end div col3--}}
     
     </div>
     </div>
@@ -30,10 +32,8 @@
  
 @section('judul','Data Layanan') 
 @section('css')
-<style>
-    #hallo {
-        font-size: 30px;
-        margin: 0
-    }
-</style>
+
+@endsection
+@section('js')
+
 @endsection
