@@ -37,4 +37,20 @@ class DesaController extends Controller
         ];
         return view('desa/pengaturan',$data);
     }
+    public function formulir($slug)
+    {
+        $pelyananan     =   Pelayanan::where('slug',$slug)->get();
+        $sidebar        =   Pelayanan::get();
+        $daerah         =   Daerah::where('nama_daerah',str_replace('Admin','',session('username')))->get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'sidebar'   =>  $sidebar,
+            'pelayanan' =>  $pelyananan,
+            'daerah'    =>  $daerah
+        ];
+        return view('desa/formulir',$data);
+    }
 }

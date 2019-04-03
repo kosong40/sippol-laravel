@@ -109,7 +109,7 @@
         </div>
         <footer class="footer">
             <div class="footer-area">
-                <p align="center" style="color:white">© Sistem Informasi Pelayanan Publik Online ( SIPPOL ) Kecamatan Pemalang Tahun {{date("Y")}}</p>
+                <p align="center" style="color:black">© Sistem Informasi Pelayanan Publik Online ( SIPPOL ) Kecamatan Pemalang Tahun {{date("Y")}}</p>
             </div>
         </footer>
         <!-- /.content-wrapper -->
