@@ -213,5 +213,12 @@ class CreateAllTable extends Migration
         Schema::drop('sublayanans');
         Schema::drop('berkas');
         Schema::drop('pemohons');
+        Schema::drop('izin-reklame');
+        Schema::drop('izin-mendirikan-bangunan');
+        Schema::drop('izin-usaha-mirko-dan-kecil');
+        Schema::drop('salon-kecantikan');
+        Schema::drop('gelanggang-ketangkasan');
+        Schema::drop('atraksi-wisata');
+        Schema::drop('rumah-makan');
     }
 }
