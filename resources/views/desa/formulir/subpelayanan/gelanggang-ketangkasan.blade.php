@@ -49,54 +49,27 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Nama Usaha</label>
-                <input type="text" class="form-control" name="nama_usaha">
+                <input type="text" name="nama_usaha"  class="form-control">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Alamat Usaha</label>
-                <input type="text" class="form-control" name="alamat_usaha">
+                <input type="text" name="alamat_usaha"  class="form-control">
             </div>
             <div class="form-group">
-                <label for="" class="label-control">Kode Pos</label>
-                <input type="text" class="form-control" name="kodepos">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Sektor Usaha</label>
-                <input type="text" class="form-control" name="sektor_usaha">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Sarana yang digunakan</label>
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Jumlah Modal Usaha</label>
-                <input type="number" class="form-control" name="tempat_reklame">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">NPWP</label>
-                <input type="number" class="form-control" name="tempat_reklame">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Klasifikasi Usaha</label>
-                <select name="klasifikasi" class="form-control">
-                    <option value="">Pilih Klasifikasi</option>
-                    <option value="Kecil">Kecil</option>
-                    <option value="Mikro">Mikro</option>
-                </select>
+                <label for="" class="label-control">Jumlah Monitor</label>
+                <input type="number" name="jumlah_monitor"  class="form-control">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Scan KTP</label>
                 <input type="file" class="form-control" name="ktp">
             </div>
             <div class="form-group">
-                <label for="" class="label-control">Scan KK</label>
-                <input type="file" class="form-control" name="scan_kk">
-            </div>
-            <div class="form-group">
                 <label for="" class="label-control">Scan Pengantar Izin Reklame dari {{$daerah->jenis_daerah}}</label>
                 <input type="file" class="form-control" name="scan_pengantar">
             </div>
             <div class="form-group">
-                <label for="" class="label-control">Pas Foto 4x6</label>
-                <input type="file" class="form-control" name="foto">
+                <label for="" class="label-control">Scan Pernyataan yang Diketahui {{$daerah->jenis_daerah}} (Bermaterai)</label>
+                <input type="file" class="form-control" name="scan_pernyataan_desa">
             </div>
             <div class="form-group">
                 <input type="submit" value="Proses" class="form-control btn btn-primary">

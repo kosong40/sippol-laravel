@@ -43,6 +43,7 @@
                     <div class="form-group">
                         <label for="" class="label-control">{{$daerah->jenis_daerah}}</label>
                         <input type="text" class="form-control" readonly value="{{$daerah->nama_daerah}}" name="daerah">
+                        <input type="hidden" name="id_daerah" value="{{$daerah->id}}">
                     </div>
                 </div>
             </div>

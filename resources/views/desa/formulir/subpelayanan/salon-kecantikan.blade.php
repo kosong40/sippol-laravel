@@ -48,55 +48,33 @@
                 </div>
             </div>
             <div class="form-group">
+                <label for="" class="label-control">Jenis Permohonan</label>
+                <select name="jenis" class="form-control" id="jenis_permohonan">
+                    <option value="">Pilih Jenis Permohonan</option>
+                    <option value="new">Permohonan Baru</option>
+                    <option value="du">Daftar Ulang</option>
+                    <option value="bn">Balik Nama</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="" class="label-control">Nama Usaha</label>
-                <input type="text" class="form-control" name="nama_usaha">
+                <input type="text" name="nama_usaha"  class="form-control">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Alamat Usaha</label>
-                <input type="text" class="form-control" name="alamat_usaha">
+                <input type="text" name="alamat_usaha"  class="form-control">
             </div>
-            <div class="form-group">
-                <label for="" class="label-control">Kode Pos</label>
-                <input type="text" class="form-control" name="kodepos">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Sektor Usaha</label>
-                <input type="text" class="form-control" name="sektor_usaha">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Sarana yang digunakan</label>
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Jumlah Modal Usaha</label>
-                <input type="number" class="form-control" name="tempat_reklame">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">NPWP</label>
-                <input type="number" class="form-control" name="tempat_reklame">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Klasifikasi Usaha</label>
-                <select name="klasifikasi" class="form-control">
-                    <option value="">Pilih Klasifikasi</option>
-                    <option value="Kecil">Kecil</option>
-                    <option value="Mikro">Mikro</option>
-                </select>
+            <div class="form-group" id="balik_nama">
+                <label for="" class="label-control">Nama Usaha Baru</label>
+                <input type="text" name="nama_usaha"  class="form-control">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Scan KTP</label>
                 <input type="file" class="form-control" name="ktp">
             </div>
             <div class="form-group">
-                <label for="" class="label-control">Scan KK</label>
-                <input type="file" class="form-control" name="scan_kk">
-            </div>
-            <div class="form-group">
                 <label for="" class="label-control">Scan Pengantar Izin Reklame dari {{$daerah->jenis_daerah}}</label>
                 <input type="file" class="form-control" name="scan_pengantar">
-            </div>
-            <div class="form-group">
-                <label for="" class="label-control">Pas Foto 4x6</label>
-                <input type="file" class="form-control" name="foto">
             </div>
             <div class="form-group">
                 <input type="submit" value="Proses" class="form-control btn btn-primary">
@@ -104,3 +82,18 @@
         </form>
     </div>
 </div>
+@section('js')
+<script>
+    $(document).ready(function(){
+        $("#balik_nama").hide('true');
+        $('#jenis_permohonan').on('change',function(){
+        var optionText = $(this).val();
+        if(optionText == "bn"){
+            $("#balik_nama").show('true');
+        }else{
+            $("#balik_nama").hide('true');
+        }
+    });
+    });
+</script>
+@endsection

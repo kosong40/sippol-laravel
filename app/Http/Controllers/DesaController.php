@@ -37,9 +37,30 @@ class DesaController extends Controller
         ];
         return view('desa/pengaturan',$data);
     }
-    public function formulir($slug)
+    public function formulirPelayanan($slug)
     {
-        $pelyananan     =   Pelayanan::where('slug',$slug)->get();
+        $pelayanan     =   Pelayanan::where('slug',$slug)->get();
+        $sidebar        =   Pelayanan::get();
+        foreach($pelayanan as $item){
+            $sublayanan = Sublayanan::where('id_pelayanan',$item['id'])->get();
+        }
+        $daerah         =   Daerah::where('nama_daerah',str_replace('Admin','',session('username')))->get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'sidebar'   =>  $sidebar,
+            'pelayanan' =>  $pelayanan,
+            'sublayanan'    =>  $sublayanan,
+            'daerah'    =>  $daerah
+        ];
+        return view('desa/formulir',$data);
+    }
+    public function formulirSublayanan($slug1,$slug2)
+    {
+        $pelyananan     =   Pelayanan::where('slug',$slug1)->get();
+        $sublayanan     =   Sublayanan::where('slug',$slug2)->get();
         $sidebar        =   Pelayanan::get();
         $daerah         =   Daerah::where('nama_daerah',str_replace('Admin','',session('username')))->get();
         $data = [
@@ -49,8 +70,9 @@ class DesaController extends Controller
             'token'     =>  session('token'),
             'sidebar'   =>  $sidebar,
             'pelayanan' =>  $pelyananan,
+            'sublayanan'    =>  $sublayanan,
             'daerah'    =>  $daerah
         ];
-        return view('desa/formulir',$data);
+        return view('desa/formulir/subpelayanan/'.$slug1,$data);
     }
 }

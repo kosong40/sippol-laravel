@@ -43,7 +43,8 @@ Route::group(['middleware' => ['sesi']], function () {
     Route::group(['prefix' => 'desa','middleware'=>'desa'], function () {
         Route::get('/','DesaController@homeDesa');
         Route::get('/pengaturan','DesaController@pagePengaturan');
-        Route::get('/formulir/{slug}','DesaController@formulir');
+        Route::get('/formulir/{slug}','DesaController@formulirPelayanan');
+        Route::get('/formulir/{slug1}/{slug2}','DesaController@formulirSublayanan');
     });
 });
 
