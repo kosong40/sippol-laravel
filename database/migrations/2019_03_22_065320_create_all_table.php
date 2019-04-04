@@ -132,6 +132,7 @@ class CreateAllTable extends Migration
             $table->string('foto');
             $table->string('pesan')->nullable();
             $table->string('status')->default('Belum');
+            $table->timestamps();
         });
         Schema::create('salon-kecantikan',function(Blueprint $table){
             $table->Increments('id');
@@ -146,6 +147,7 @@ class CreateAllTable extends Migration
             $table->string('scan_pengantar');
             $table->string('pesan')->nullable();
             $table->string('status')->default('Belum');
+            $table->timestamps();
         });
         Schema::create('gelanggang-ketangkasan',function(Blueprint $table){
             $table->Increments('id');
@@ -160,6 +162,7 @@ class CreateAllTable extends Migration
             $table->string('scan_pernyataan_desa');
             $table->string('pesan')->nullable();
             $table->string('status')->default('Belum');
+            $table->timestamps();
         });
         Schema::create('atraksi-wisata',function(Blueprint $table){
             $table->Increments('id');
@@ -177,6 +180,22 @@ class CreateAllTable extends Migration
             $table->string('struktur_organisasi');
             $table->string('pesan')->nullable();
             $table->string('status')->default('Belum');
+            $table->timestamps();
+        });
+        Schema::create('rumah-makan',function(Blueprint $table){
+            $table->Increments('id');
+            $table->Integer('id_pemohon')->unsigned();
+            $table->foreign('id_pemohon')->references('id')->on('pemohons');
+            $table->string('no_sk')->unique()->nullable();
+            $table->string('jenis');
+            $table->string('nama_usaha');
+            $table->string('alamat_usaha');
+            $table->string('nama_usaha_baru')->nullable();
+            $table->string('scan_ktp');
+            $table->string('scan_pengantar');
+            $table->string('pesan')->nullable();
+            $table->string('status')->default('Belum');
+            $table->timestamps();
         });
     }
 
