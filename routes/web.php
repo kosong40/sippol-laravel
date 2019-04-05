@@ -10,7 +10,10 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/testing',function(){
+    return view('testing');
+});
+Route::post('/testing/upload','AdminController@testing');
 Route::get('/', function () {
     return view('index');
 });
@@ -45,6 +48,7 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/pengaturan','DesaController@pagePengaturan');
         Route::get('/formulir/{slug}','DesaController@formulirPelayanan');
         Route::get('/formulir/{slug1}/{slug2}','DesaController@formulirSublayanan');
+        Route::post('/formulir/imb','DesaController@imb');
     });
 });
 

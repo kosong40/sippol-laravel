@@ -18,11 +18,13 @@
     <ul class="list-group">
         <li class="list-group-item active">Daftar Pelayanan</li>
         @foreach ($pelayanan as $item)
-            <li class="list-group-item"><a href="{{url('/kecamatan/layanan/'.$item['slug'])}}">{{$item->pelayanan}}</a></li>
+            <li class="list-group-item"><a href="{{url('/kecamatan/layanan/'.$item['slug'])}}">{{$item->pelayanan}} 
+            <small class="label pull-right bg-green">{{$pemohon->where('pelayanan_id',$item->id)->count()}}</small>
+            </a></li>
         @endforeach
     </ul>
     </div> {{-- end div col3--}}
-    
+        
     </div>
     </div>
 </div>

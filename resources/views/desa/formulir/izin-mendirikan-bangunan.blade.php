@@ -3,11 +3,11 @@
         <h3 class="box-title">Formulir</h3>
     </div>
     <div class="box-body" style="height: 670px;overflow-y: scroll;">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{url('desa/formulir/imb')}}" method="post" enctype="multipart/form-data">
         @csrf
             <div class="form-group">
                 <label for="" class="label-control">Nama Pemohon</label>
-                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nik">
+                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nama_pemohon">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">NIK</label>
@@ -43,9 +43,14 @@
                     <div class="form-group">
                         <label for="" class="label-control">{{$daerah->jenis_daerah}}</label>
                         <input type="text" class="form-control" readonly value="{{$daerah->nama_daerah}}" name="daerah">
-                        <input type="hidden" name="id_daerah" value="{{$daerah->id}}">
+                        <input type="hidden" name="daerah_id" value="{{$daerah->id}}">
+                        <input type="hidden" name="pelayanan_id" value="{{$pelayanan->id}}">
                     </div>
                 </div>
+            </div>
+            <div class="form-group">
+                <label for="" class="label-control">Pekerjaan</label>
+                <input type="text" class="form-control" name="pekerjaan">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Keperluan Bangunan</label>
@@ -57,7 +62,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Letak Bangunan</label>
-                <input type="text" class="form-control" name="konstruksi_bangunan">
+                <input type="text" class="form-control" name="letak_bangunan">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Luas Bangunan</label>
@@ -65,7 +70,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Luas Tanah</label>
-                <input type="number" class="form-control" name="luas_bangunan">
+                <input type="number" class="form-control" name="luas_tanah">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Pemilik Tanah</label>

@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
 use App\Sublayanan;
+use App\Pemohon;
 use Datatables;
 
 class AdminController extends Controller
@@ -206,12 +208,15 @@ class AdminController extends Controller
     }
     public function dataPelayanan()
     {
+        $pemohon    =   [];
         $pelayanan = Pelayanan::get();
+        $pemohon    =   Pemohon::get();
         $data = [
             'nama'      =>  session('nama'),
             'username'  =>  session('username'),
             'level'     =>  session('level'),
             'token'     =>  session('token'),
+            'pemohon'   =>  $pemohon,
             'pelayanan' =>  $pelayanan,
         ];
         return view('kecamatan/data-pelayanan',$data);
@@ -321,6 +326,19 @@ class AdminController extends Controller
             'nip'           =>  $request['nip']
         ]);
         return redirect()->back()->with('sukses','Berhasil mengubah informasi Kecamatan');
+    }
+    public function testing(Request $request)
+    {
+        $request->validate([
+            'gambar'    =>  'required | mimes:jpeg,jpg,png,PNG | max:2048',
+        ]);
+        $gambar = $request->file('gambar');
+        $ktp    =   "imbxx.".$gambar->getClientOriginalExtension();
+        $path   =   "berkas/imb/ktp/";
+        $upload = $request->file('gambar')->move($path,$ktp);
+        dd($path.$ktp);
+       
+        
     }
 
  
