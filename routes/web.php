@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Cookie;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,7 +12,8 @@
 |
 */
 Route::get('/testing',function(){
-    return view('testing');
+    // return view('testing');
+    dd(Cookie::get('laravel_session'));
 });
 Route::post('/testing/upload','AdminController@testing');
 Route::get('/', function () {
@@ -19,6 +21,7 @@ Route::get('/', function () {
 });
 Route::get('/login',function(){
     return view('login');
+    
 })->name('login');
 Route::post('/login','AdminController@login');
 Route::get('/cobaApi','ApiAll@pelayanan');
@@ -49,6 +52,11 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/formulir/{slug}','DesaController@formulirPelayanan');
         Route::get('/formulir/{slug1}/{slug2}','DesaController@formulirSublayanan');
         Route::post('/formulir/imb','DesaController@imb');
+        Route::post('/formulir/reklame','DesaController@reklameForm')->name('formulilr_reklame');
+        Route::post('/profil/akun','DesaController@editAkunDesa')->name('akunDesa');
+        Route::post('/profil/akun/pass','DesaController@editPassAdminDesa')->name('passAdminDesa');
+        Route::post('/profil/akun/info/{id}','DesaController@gantiInfoDesa')->name('gantiInfoDesa');
+         
     });
 });
 

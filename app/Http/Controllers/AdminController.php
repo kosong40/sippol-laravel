@@ -6,11 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cookie;
 use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
 use App\Sublayanan;
 use App\Pemohon;
+use App\imb;
 use Datatables;
 
 class AdminController extends Controller
@@ -46,19 +48,19 @@ class AdminController extends Controller
                     ]);
                     if($admins->level == "1"){
                         session([
-                            'nama' => $admins->nama,
-                            'username' => $admins->username,
-                            'level' => $admins->level,
-                            'token' => $request['_token']
+                            'nama'      => $admins->nama,
+                            'username'  => $admins->username,
+                            'level'     => $admins->level,
+                            'token'     => $request['_token']
                         ]);
                         return redirect('/kecamatan');
                     }else{
                         session([
-                            'nama' => $admins->nama,
-                            'username' => $admins->username,
-                            'level' => $admins->level,
+                            'nama'      => $admins->nama,
+                            'username'  => $admins->username,
+                            'level'     => $admins->level,
                             'daerah'    => $admins->daerah_id,
-                            'token' => $request['_token']
+                            'token'     => $request['_token']
                         ]);
                         return redirect('/desa');
                     }
@@ -79,10 +81,12 @@ class AdminController extends Controller
             'updated_at' => now(+7.00)
         ]);
         session()->flush();
-        return redirect('/');
+        $cookie = \Cookie::forget('token_login');
+        return redirect('/')->withCookie($cookie);
     }
     public function homeKec()
     {
+        // dd("token : ".session('token')." token cookie: ".Cookie::get('token_login'));
         $sidebar  =   Pelayanan::get();
         $pelayanan = Pelayanan::get();
         $data = [
@@ -90,7 +94,7 @@ class AdminController extends Controller
             'username'  =>  session('username'),
             'level'     =>  session('level'),
             'token'     =>  session('token'),
-            'sidebar' =>  $sidebar,
+            'sidebar'   =>  $sidebar,
             'pelayanan' =>  $pelayanan,
         ];
         return view('kecamatan/beranda',$data);
@@ -208,6 +212,7 @@ class AdminController extends Controller
     }
     public function dataPelayanan()
     {
+        // dd(Pemohon::find(2)->imb());
         $pemohon    =   [];
         $pelayanan = Pelayanan::get();
         $pemohon    =   Pemohon::get();

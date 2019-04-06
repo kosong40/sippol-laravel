@@ -59,7 +59,7 @@ class CreateAllTable extends Migration
         Schema::create('pemohons', function (Blueprint $table) {
             $table->Increments('id');
             $table->string('nama');
-            $table->string('nik',16)->unique();
+            $table->string('nik',16);
             $table->string('telepon');
             $table->string('pekerjaan');
             $table->string('rt')->nullable();
