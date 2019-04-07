@@ -53,6 +53,7 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/formulir/{slug1}/{slug2}','DesaController@formulirSublayanan');
         Route::post('/formulir/imb','DesaController@imb');
         Route::post('/formulir/reklame','DesaController@reklameForm')->name('formulilr_reklame');
+        Route::post('/formulir/iumk','DesaController@iumkForm')->name('formulir_iumk');
         Route::post('/profil/akun','DesaController@editAkunDesa')->name('akunDesa');
         Route::post('/profil/akun/pass','DesaController@editPassAdminDesa')->name('passAdminDesa');
         Route::post('/profil/akun/info/{id}','DesaController@gantiInfoDesa')->name('gantiInfoDesa');

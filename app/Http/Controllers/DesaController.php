@@ -276,4 +276,60 @@ class DesaController extends Controller
         ]);
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Reklame');
     }
+    public function iumkForm(Request $request)
+    {
+        // dd($request->all());
+        $pemohon = Pemohon::create([
+            'nama'  =>  $request['nama_pemohon'],
+            'nik'   =>  $request['nik'],
+            'telepon'   =>  $request['telepon'],
+            'pekerjaan' =>  $request['pekerjaan'],
+            'rt'    =>  $request['rt'],
+            'rw'    =>  $request['rw'],
+            'jalan' =>  $request['jalan'],
+            'daerah_id'    =>  $request['id_daerah'],
+            'pelayanan_id'  => $request['pelayanan_id'],
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        $id_pemohon = $pemohon->id;
+        $a  =   $request->file('ktp');
+        $b  =   $request->file('scan_kk');
+        $c  =   $request->file('scan_pengantar');
+        $d  =   $request->file('foto');
+            // scan ktp
+        $path_a =   "berkas/iumk/a/";
+        $nama_a =   $id_pemohon."_ktp.".$a->getClientOriginalExtension();
+        $request->file('ktp')->move($path_a,$nama_a);
+            //scan kk
+        $path_b =   "berkas/iumk/b/";
+        $nama_b =   $id_pemohon."_scan_kk.".$b->getClientOriginalExtension();
+        $request->file('scan_kk')->move($path_b,$nama_b);
+            //scan pengantar dari desa
+        $path_c =   "berkas/iumk/c/";
+        $nama_c =   $id_pemohon."_scan_pengantar.".$c->getClientOriginalExtension();
+        $request->file('scan_pengantar')->move($path_c,$nama_c);
+            //  scann pas foto 4X6
+        $path_d =   "berkas/iumk/d/";
+        $nama_d =   $id_pemohon."_foto.".$d->getClientOriginalExtension();
+        $request->file('foto')->move($path_d,$nama_d);
+        DB::table('izin-usaha-mirko-dan-kecil')->insert([
+            'id_pemohon'    => $id_pemohon,
+            'nama_usaha'    => $request['nama_usaha'],
+            'alamat_usaha'  =>  $request['alamat_usaha'],
+            'kodepos'       =>  $request['kodepos'],
+            'sektor_usaha'  =>  $request['sektor_usaha'],
+            'sarana'        =>  $request['sarana'],
+            'modal'         =>  $request['modal'],
+            'npwp'         =>  $request['npwp'],
+            'klasifikasi'         =>  $request['klasifikasi'],
+            'scan_ktp'          => $path_a.$nama_a,
+            'scan_kk'         => $path_b.$nama_b,
+            'scan_pengantar'    => $path_c.$nama_c,
+            'foto'  => $path_d.$nama_d,
+            'created_at'        => now(+7.00),
+            'updated_at'        => null
+        ]);
+        return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Usaha Mikro dan Kecil');
+    }
 }

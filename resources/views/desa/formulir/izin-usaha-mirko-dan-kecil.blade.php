@@ -3,11 +3,11 @@
         <h3 class="box-title">Formulir</h3>
     </div>
     <div class="box-body" style="height: 670px;overflow-y: scroll;">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{route('formulir_iumk')}}" method="post" enctype="multipart/form-data">
         @csrf
             <div class="form-group">
                 <label for="" class="label-control">Nama Pemohon</label>
-                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nik">
+                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nama_pemohon">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">NIK</label>
@@ -16,6 +16,10 @@
             <div class="form-group">
                 <label for="" class="label-control">No. Telepon</label>
                 <input type="text" class="form-control" placeholder="Nomor Telepon" name="telepon">
+            </div>
+            <div class="form-group">
+                <label for="" class="label-control">Pekerjaan</label>
+                <input type="text" class="form-control" name="pekerjaan">
             </div>
             <label for="" class="label-control">Alamat</label>
             <div class="row">
@@ -44,6 +48,7 @@
                         <label for="" class="label-control">{{$daerah->jenis_daerah}}</label>
                         <input type="text" class="form-control" readonly value="{{$daerah->nama_daerah}}" name="daerah">
                         <input type="hidden" name="id_daerah" value="{{$daerah->id}}">
+                         <input type="hidden" name="pelayanan_id" value="{{$pelayanan->id}}">
                     </div>
                 </div>
             </div>
@@ -65,14 +70,15 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Sarana yang digunakan</label>
+                <input type="text" class="form-control" name="sarana">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Jumlah Modal Usaha</label>
-                <input type="number" class="form-control" name="tempat_reklame">
+                <input type="number" class="form-control" name="modal">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">NPWP</label>
-                <input type="number" class="form-control" name="tempat_reklame">
+                <input type="text" class="form-control" name="npwp">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Klasifikasi Usaha</label>
