@@ -36,6 +36,7 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/akun/resetpass/{username}','AdminController@resetPass');
         Route::get('/layanan','AdminController@dataPelayanan');
         Route::get('/layanan/{slug}','AdminController@dataLayanan');
+        Route::get('/layanan/{slug}/{id}','AdminController@dataLayananDetail');
         Route::get('/profil','AdminController@ubahDataAdmin');
         Route::get('/pelayanan','AdminController@pelayanan');
         Route::post('/pelayanan/ubah/{slug}','AdminController@ubahKetPelayanan');
@@ -54,6 +55,10 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::post('/formulir/imb','DesaController@imb');
         Route::post('/formulir/reklame','DesaController@reklameForm')->name('formulilr_reklame');
         Route::post('/formulir/iumk','DesaController@iumkForm')->name('formulir_iumk');
+        Route::post('/formulir/salon','DesaController@salonForm')->name('formulir_salon');
+
+
+
         Route::post('/profil/akun','DesaController@editAkunDesa')->name('akunDesa');
         Route::post('/profil/akun/pass','DesaController@editPassAdminDesa')->name('passAdminDesa');
         Route::post('/profil/akun/info/{id}','DesaController@gantiInfoDesa')->name('gantiInfoDesa');

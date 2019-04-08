@@ -12,7 +12,7 @@
     <div class="container-fluid">
     <div class="row">
     <div class="col-sm-9">
-       
+        <h1>Data masuk hari ini : {{$data}}</h1>
     </div>
     <div class="col-sm-3">
     <ul class="list-group">

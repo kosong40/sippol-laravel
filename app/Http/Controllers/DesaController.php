@@ -16,6 +16,7 @@ use Datatables;
 
 class DesaController extends Controller
 {
+    
     public function CustomValidation()
     {
         $pesan = [
@@ -29,6 +30,7 @@ class DesaController extends Controller
     }
     public function homeDesa()
     {
+        
         $sidebar    =   Pelayanan::get();
         $data = [
             'nama'      =>  session('nama'),
@@ -331,5 +333,64 @@ class DesaController extends Controller
             'updated_at'        => null
         ]);
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Usaha Mikro dan Kecil');
+    }
+    public function salonForm(Request $request)
+    {
+        // dd($request->all());
+        $pemohon = Pemohon::create([
+            'nama'  =>  $request['nama_pemohon'],
+            'nik'   =>  $request['nik'],
+            'telepon'   =>  $request['telepon'],
+            'pekerjaan' =>  $request['pekerjaan'],
+            'rt'    =>  $request['rt'],
+            'rw'    =>  $request['rw'],
+            'jalan' =>  $request['jalan'],
+            'daerah_id'    =>  $request['id_daerah'],
+            'pelayanan_id'  => $request['pelayanan_id'],
+            'sublayanan_id' =>$request['sublayanan_id'],
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        $id_pemohon = $pemohon->id;
+        $a  =   $request->file('ktp');
+        $b  =   $request->file('scan_pengantar');
+            //scan ktp
+        $path_a =   "berkas/salon-kecantikan/a/";
+        $nama_a =   $id_pemohon."_ktp.".$a->getClientOriginalExtension();
+        $request->file('ktp')->move($path_a,$nama_a);
+            //scan kk
+        $path_b =   "berkas/salon-kecantikan/b/";
+        $nama_b =   $id_pemohon."_scan_pengantar.".$b->getClientOriginalExtension();
+        $request->file('scan_pengantar')->move($path_b,$nama_b);
+        $jenis;
+        if($request['jenis'] == "new"){
+            $jenis = "Permohonan Baru";
+        }elseif($request['jenis'] == "du"){
+            $jenis = "Daftar Ulang";
+        }else{
+            $jenis = "Balik Nama";
+        }
+        if($request['jenis'] == "bn"){
+            DB::table('salon-kecantikan')->insert([
+                'id_pemohon'    => $id_pemohon,
+                'jenis'=>$jenis,
+                'nama_usaha'    => $request['nama_usaha'],
+                'alamat_usaha'  =>  $request['alamat_usaha'],
+                'nama_usaha_baru'    =>  $request['nama_usaha_baru'],
+                'scan_ktp'      => $path_a.$nama_a,
+                'scan_pengantar'         => $path_b.$nama_b,
+            ]);
+        }else{
+            DB::table('salon-kecantikan')->insert([
+                'id_pemohon'    => $id_pemohon,
+                'jenis'=>$jenis,
+                'nama_usaha'    => "-",
+                'alamat_usaha'  =>  $request['alamat_usaha'],
+                'nama_usaha_baru'    =>  $request['nama_usaha'],
+                'scan_ktp'      => $path_a.$nama_a,
+                'scan_pengantar'         => $path_b.$nama_b,
+            ]);
+        }
+        return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Salon Kecantikan');
     }
 }

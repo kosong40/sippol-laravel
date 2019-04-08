@@ -44,4 +44,28 @@ class ApiAll extends Controller
             'daerah' => $daerah
         ]);
     }
+    public function dataLayanan($slug)
+    {
+        $layanan = DB::table("$slug")
+        ->join('pemohons','pemohons.id','=',"$slug.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->get();
+
+        return DataTables::of($layanan)
+        ->addColumn('action',function($data){
+            return '<a class="btn btn-info btn-sm" href='.url('/kecamatan/layanan').'/'.$data->slug.'/'.$data->id_pemohon.'>Detail </a>';
+        })
+        ->addIndexColumn()
+        ->make(true);
+    }
+    public function dataSublayanan($slug1,$slug2)
+    {
+        $layanan = DB::table("$slug2")
+        ->join('pemohons','pemohons.id','=',"$slug2.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->join('sublayanans','sublayanans.id','=','pemohons.sublayanan_id')
+        ->get();
+    }
 }

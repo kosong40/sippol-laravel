@@ -87,6 +87,7 @@ class AdminController extends Controller
     public function homeKec()
     {
         // dd("token : ".session('token')." token cookie: ".Cookie::get('token_login'));
+        
         $sidebar  =   Pelayanan::get();
         $pelayanan = Pelayanan::get();
         $data = [
@@ -213,6 +214,7 @@ class AdminController extends Controller
     public function dataPelayanan()
     {
         // dd(Pemohon::find(2)->imb());
+        $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
         $pemohon    =   [];
         $pelayanan = Pelayanan::get();
         $pemohon    =   Pemohon::get();
@@ -222,6 +224,7 @@ class AdminController extends Controller
             'level'     =>  session('level'),
             'token'     =>  session('token'),
             'pemohon'   =>  $pemohon,
+            'data' => $dataMasuk,
             'pelayanan' =>  $pelayanan,
         ];
         return view('kecamatan/data-pelayanan',$data);
@@ -243,9 +246,12 @@ class AdminController extends Controller
         return view('kecamatan/sublayanan-setting',$data);
     }
     public function dataLayanan($slug)
+
     {
 
+      $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
       $pelayanan = Pelayanan::where('slug',$slug)->get();
+      $pemohon    =   Pemohon::get();
       $sidebar  =   Pelayanan::get();
       foreach($pelayanan as $item){
           $sublayanan = Sublayanan::where('id_pelayanan',$item['id'])->get();
@@ -258,10 +264,21 @@ class AdminController extends Controller
           'layanan' =>  $pelayanan,
           'sublayanan' =>  $sublayanan,
           'sidebar' =>  $sidebar,
+          'pemohon' => $pemohon,
+          'Today' => $dataMasuk
       ];
       return view('kecamatan/data',$data);
     }
-
+    public function dataLayananDetail($slug,$id)
+    {
+        
+        dd($layanan = DB::table("$slug")
+        ->join('pemohons','pemohons.id','=',"$slug.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->where("$slug.id_pemohon",$id)
+        ->get());
+    }
     public function ubahDataAdmin()
     {
         $sidebar    =   Pelayanan::get();

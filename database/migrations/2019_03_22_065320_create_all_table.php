@@ -69,6 +69,8 @@ class CreateAllTable extends Migration
             $table->foreign('daerah_id')->references('id')->on('daerahs');
             $table->Integer('pelayanan_id')->unsigned();
             $table->foreign('pelayanan_id')->references('id')->on('pelayanans');
+            $table->Integer('sublayanan_id')->unsigned()->nullable();
+            $table->foreign('sublayanan_id')->references('id')->on('sublayanans');
             $table->timestamps();
         });
         Schema::create('izin-reklame',function(Blueprint $table){

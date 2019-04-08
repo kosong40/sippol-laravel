@@ -16,6 +16,12 @@
                 <li class="active">{{$sub->subpelayanan}}</li>
             </ol>
         </section>
+        @if (session('sukses'))
+            <br>
+            <div class="alert alert-success" role="alert">
+                <p align="center">{{session('sukses')}}</p>
+            </div>
+        @endif
         <div class="row" style="margin-top:20px">
             <div class="col-sm-5">
                 <div class="box box-solid box-warning">
