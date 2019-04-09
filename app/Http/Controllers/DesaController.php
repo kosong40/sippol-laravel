@@ -379,6 +379,8 @@ class DesaController extends Controller
                 'nama_usaha_baru'    =>  $request['nama_usaha_baru'],
                 'scan_ktp'      => $path_a.$nama_a,
                 'scan_pengantar'         => $path_b.$nama_b,
+                'created_at'    =>  now(+7.00),
+                'updated_at'   => null
             ]);
         }else{
             DB::table('salon-kecantikan')->insert([
@@ -389,8 +391,170 @@ class DesaController extends Controller
                 'nama_usaha_baru'    =>  $request['nama_usaha'],
                 'scan_ktp'      => $path_a.$nama_a,
                 'scan_pengantar'         => $path_b.$nama_b,
+                'created_at'    =>  now(+7.00),
+                'updated_at'   => null
             ]);
         }
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Salon Kecantikan');
+    }
+    public function rmForm(Request $request)
+    {
+        $pemohon = Pemohon::create([
+            'nama'  =>  $request['nama_pemohon'],
+            'nik'   =>  $request['nik'],
+            'telepon'   =>  $request['telepon'],
+            'pekerjaan' =>  $request['pekerjaan'],
+            'rt'    =>  $request['rt'],
+            'rw'    =>  $request['rw'],
+            'jalan' =>  $request['jalan'],
+            'daerah_id'    =>  $request['id_daerah'],
+            'pelayanan_id'  => $request['pelayanan_id'],
+            'sublayanan_id' =>$request['sublayanan_id'],
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        $id_pemohon = $pemohon->id;
+        $a  =   $request->file('ktp');
+        $b  =   $request->file('scan_pengantar');
+            //scan ktp
+        $path_a =   "berkas/rumah-makan/a/";
+        $nama_a =   $id_pemohon."_ktp.".$a->getClientOriginalExtension();
+        $request->file('ktp')->move($path_a,$nama_a);
+            //scan kk
+        $path_b =   "berkas/rumah-makan/b/";
+        $nama_b =   $id_pemohon."_scan_pengantar.".$b->getClientOriginalExtension();
+        $request->file('scan_pengantar')->move($path_b,$nama_b);
+        $jenis;
+        if($request['jenis'] == "new"){
+            $jenis = "Permohonan Baru";
+        }elseif($request['jenis'] == "du"){
+            $jenis = "Daftar Ulang";
+        }else{
+            $jenis = "Balik Nama";
+        }
+        if($request['jenis'] == "bn"){
+            DB::table('rumah-makan')->insert([
+                'id_pemohon'    => $id_pemohon,
+                'jenis'=>$jenis,
+                'nama_usaha'    => $request['nama_usaha'],
+                'alamat_usaha'  =>  $request['alamat_usaha'],
+                'nama_usaha_baru'    =>  $request['nama_usaha_baru'],
+                'scan_ktp'      => $path_a.$nama_a,
+                'scan_pengantar'         => $path_b.$nama_b,
+                'created_at'    =>  now(+7.00),
+                'updated_at'   => null
+            ]);
+        }else{
+            DB::table('rumah-makan')->insert([
+                'id_pemohon'    => $id_pemohon,
+                'jenis'=>$jenis,
+                'nama_usaha'    => "-",
+                'alamat_usaha'  =>  $request['alamat_usaha'],
+                'nama_usaha_baru'    =>  $request['nama_usaha'],
+                'scan_ktp'          => $path_a.$nama_a,
+                'scan_pengantar'         => $path_b.$nama_b,
+                'created_at'    =>  now(+7.00),
+                'updated_at'   => null
+            ]);
+        }
+        return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Rumah Makan');
+    }
+    public function gkForm(Request $request)
+    {
+        $pemohon = Pemohon::create([
+            'nama'  =>  $request['nama_pemohon'],
+            'nik'   =>  $request['nik'],
+            'telepon'   =>  $request['telepon'],
+            'pekerjaan' =>  $request['pekerjaan'],
+            'rt'    =>  $request['rt'],
+            'rw'    =>  $request['rw'],
+            'jalan' =>  $request['jalan'],
+            'daerah_id'    =>  $request['id_daerah'],
+            'pelayanan_id'  => $request['pelayanan_id'],
+            'sublayanan_id' =>$request['sublayanan_id'],
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        $id_pemohon = $pemohon->id;
+        $a  =   $request->file('ktp');
+        $b  =   $request->file('scan_pengantar');
+        $c  =   $request->file('scan_pernyataan_desa');
+            //scan ktp
+        $path_a =   "berkas/gelanggang-ketangkasan/a/";
+        $nama_a =   $id_pemohon."_ktp.".$a->getClientOriginalExtension();
+        $request->file('ktp')->move($path_a,$nama_a);
+            //scan pengantar
+        $path_b =   "berkas/gelanggang-ketangkasan/b/";
+        $nama_b =   $id_pemohon."_scan_pengantar.".$b->getClientOriginalExtension();
+        $request->file('scan_pengantar')->move($path_b,$nama_b);
+            // scan pernyataan bermaterai
+        $path_c =   "berkas/gelanggang-ketangkasan/c/";
+        $nama_c =   $id_pemohon."_scan_pernyataan_desa.".$c->getClientOriginalExtension();
+        $request->file('scan_pernyataan_desa')->move($path_c,$nama_c);
+        DB::table('gelanggang-ketangkasan')->insert([
+            'id_pemohon'    => $id_pemohon,
+            'nama_usaha'    => $request['nama_usaha'],
+            'alamat_usaha'  =>  $request['alamat_usaha'],
+            'jumlah_monitor'    =>$request['jumlah_monitor'],
+            'scan_ktp'      => $path_a.$nama_a,
+            'scan_pengantar'         => $path_b.$nama_b,
+            'scan_pernyataan_desa'  =>$path_c.$nama_c,
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Gelanggang Ketangkasan');
+    }
+    public function awForm(Request $request)
+    {
+        $pemohon = Pemohon::create([
+            'nama'  =>  $request['nama_pemohon'],
+            'nik'   =>  $request['nik'],
+            'telepon'   =>  $request['telepon'],
+            'pekerjaan' =>  $request['pekerjaan'],
+            'rt'    =>  $request['rt'],
+            'rw'    =>  $request['rw'],
+            'jalan' =>  $request['jalan'],
+            'daerah_id'    =>  $request['id_daerah'],
+            'pelayanan_id'  => $request['pelayanan_id'],
+            'sublayanan_id' =>$request['sublayanan_id'],
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        $id_pemohon = $pemohon->id;
+        $a  =   $request->file('ktp');
+        $b  =   $request->file('scan_pengantar');
+        $c  =   $request->file('scan_pernyataan_desa');
+        $d  =   $request->file('struktur_organisasi');
+        //scan ktp
+        $path_a =   "berkas/atraksi-wisata/a/";
+        $nama_a =   $id_pemohon."_ktp.".$a->getClientOriginalExtension();
+        $request->file('ktp')->move($path_a,$nama_a);
+            //scan pengantar
+        $path_b =   "berkas/atraksi-wisata/b/";
+        $nama_b =   $id_pemohon."_scan_pengantar.".$b->getClientOriginalExtension();
+        $request->file('scan_pengantar')->move($path_b,$nama_b);
+            // scan pernyataan bermaterai
+        $path_c =   "berkas/atraksi-wisata/c/";
+        $nama_c =   $id_pemohon."_scan_pernyataan_desa.".$c->getClientOriginalExtension();
+        $request->file('scan_pernyataan_desa')->move($path_c,$nama_c);
+            // scan struktur organ
+        $path_d =   "berkas/atraksi-wisata/d/";
+        $nama_d =   $id_pemohon."_struktur_organisasi.".$d->getClientOriginalExtension();
+        $request->file('struktur_organisasi')->move($path_d,$nama_d);
+        DB::table('atraksi-wisata')->insert([
+            'id_pemohon'    => $id_pemohon,
+            'umur'      => $request['umur'],
+            'nama_usaha'    => $request['nama_usaha'],
+            'alamat_usaha'  =>  $request['alamat_usaha'],
+            'jumlah_karyawan'    =>$request['jumlah_karyawan'],
+            'nilai_aset'    =>  $request['nilai_aset'],
+            'scan_ktp'      => $path_a.$nama_a,
+            'scan_pengantar'         => $path_b.$nama_b,
+            'scan_pernyataan_desa'  =>$path_c.$nama_c,
+            'struktur_organisasi' => $path_d.$nama_d,
+            'created_at'    =>  now(+7.00),
+            'updated_at'   => null
+        ]);
+        return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Atraksi Wisata');
     }
 }

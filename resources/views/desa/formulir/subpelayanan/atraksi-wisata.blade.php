@@ -3,11 +3,11 @@
         <h3 class="box-title">Formulir</h3>
     </div>
     <div class="box-body" style="height: 670px;overflow-y: scroll;">
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="{{route('formulir_aw')}}" method="post" enctype="multipart/form-data">
         @csrf
             <div class="form-group">
                 <label for="" class="label-control">Nama Pemohon</label>
-                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nik">
+                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nama_pemohon">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">NIK</label>
@@ -16,6 +16,10 @@
             <div class="form-group">
                 <label for="" class="label-control">No. Telepon</label>
                 <input type="text" class="form-control" placeholder="Nomor Telepon" name="telepon">
+            </div>
+            <div class="form-group">
+                <label for="" class="label-control">Pekerjaan</label>
+                <input type="text" class="form-control" name="pekerjaan">
             </div>
             <label for="" class="label-control">Alamat</label>
             <div class="row">
@@ -44,6 +48,8 @@
                         <label for="" class="label-control">{{$daerah->jenis_daerah}}</label>
                         <input type="text" class="form-control" readonly value="{{$daerah->nama_daerah}}" name="daerah">
                         <input type="hidden" name="id_daerah" value="{{$daerah->id}}">
+                         <input type="hidden" name="pelayanan_id" value="{{$pelayanan->id}}">
+                         <input type="hidden" name="sublayanan_id" value="{{$sub->id}}">
                     </div>
                 </div>
             </div>
@@ -72,7 +78,7 @@
                 <input type="file" class="form-control" name="ktp">
             </div>
             <div class="form-group">
-                <label for="" class="label-control">Scan Pengantar Izin Reklame dari {{$daerah->jenis_daerah}}</label>
+                <label for="" class="label-control">Scan Pengantar dari {{$daerah->jenis_daerah}}</label>
                 <input type="file" class="form-control" name="scan_pengantar">
             </div>
             <div class="form-group">
@@ -81,7 +87,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Scan Struktur Organisasi</label>
-                <input type="file" class="form-control" name="struktur_desa">
+                <input type="file" class="form-control" name="struktur_organisasi">
             </div>
             <div class="form-group">
                 <input type="submit" value="Proses" class="form-control btn btn-primary">

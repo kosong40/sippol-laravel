@@ -68,7 +68,7 @@
 <script src="{{url('adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js')}}"></script>
 <script>
     $(function () {
-        $('#layanan').DataTable({
+    $('#layanan').DataTable({
             "processing"    :true,
             "serverSide"    :true,
             "ajax"          : "{{url('api/layanan/'.$layanan->slug)}}",

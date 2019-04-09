@@ -56,7 +56,9 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::post('/formulir/reklame','DesaController@reklameForm')->name('formulilr_reklame');
         Route::post('/formulir/iumk','DesaController@iumkForm')->name('formulir_iumk');
         Route::post('/formulir/salon','DesaController@salonForm')->name('formulir_salon');
-
+        Route::post('/formulir/rumahMakan','DesaController@rmForm')->name('formulir_rm');
+        Route::post('/formulir/gelanggangketangkasan','DesaController@gkForm')->name('formulir_gk');
+        Route::post('/formulir/atraksiwisata','DesaController@awForm')->name('formulir_aw');
 
 
         Route::post('/profil/akun','DesaController@editAkunDesa')->name('akunDesa');
