@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
+use App\Helpers\rupiah;
+use App\Helpers\indoValidation;
 use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
@@ -16,18 +18,6 @@ use Datatables;
 
 class DesaController extends Controller
 {
-    
-    public function CustomValidation()
-    {
-        $pesan = [
-            'required'  => 'Form :attribute mohon untuk di isi dan tidak boleh kosong',
-            'numeric'   => 'Form :attribute harus di isi angka',
-            'email'     => 'Form :attribute sesuai dengan format Email contoh NamaAnda12@email.com',
-            'min'       => 'Form :attribute minimal :min karakter',
-            'same'      => 'Form :attribute nilainya harus sama dengan form :other'
-        ];
-        return $pesan;
-    }
     public function generateKode()
     {
         $string = "ABCDEFGHIJKLMNOPQRETUVWXYZabcdefghijklmnopqrstuwvxyz1234567890";
@@ -69,7 +59,7 @@ class DesaController extends Controller
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ],$this->CustomValidation());
+        ],indoValidation::valid());
         Admin::where('username',$request['username'])->update([
             'nama'      => $request['nama'],
             'kontak'    => $request['kontak'],
@@ -88,7 +78,7 @@ class DesaController extends Controller
             'passlama'  => 'required',
             'passbaru'  => 'required|min:8',
             'passulang' =>  'required|min:8|same:passbaru'
-        ],$this->CustomValidation());
+        ],indoValidation::valid());
 
         foreach($admin as $admin){
             if(Hash::check($request['passlama'], $admin->password)){
@@ -110,7 +100,7 @@ class DesaController extends Controller
         $request->validate([
             'kades'  => 'required',
             'nip'   =>  'required|numeric'
-        ],$this->CustomValidation());
+        ],indoValidation::valid());
         Daerah::where('id',$id)->update([
             'kepala_daerah' => $request['kades'],
             'nip'           =>  $request['nip']
