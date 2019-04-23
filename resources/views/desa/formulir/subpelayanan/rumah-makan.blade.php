@@ -62,6 +62,10 @@
                     <option value="bn">Balik Nama</option>
                 </select>
             </div>
+            <div class="form-group" id="balik_nama">
+                <label for="" class="label-control">Nama Pemilik Usaha Lama</label>
+                <input type="text" name="nama_usaha_baru"  class="form-control">
+            </div>
             <div class="form-group">
                 <label for="" class="label-control">Nama Usaha</label>
                 <input type="text" name="nama_usaha"  class="form-control">
@@ -69,10 +73,6 @@
             <div class="form-group">
                 <label for="" class="label-control">Alamat Usaha</label>
                 <input type="text" name="alamat_usaha"  class="form-control">
-            </div>
-            <div class="form-group" id="balik_nama">
-                <label for="" class="label-control">Nama Usaha Baru</label>
-                <input type="text" name="nama_usaha_baru"  class="form-control">
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Scan KTP</label>

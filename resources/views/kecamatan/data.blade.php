@@ -6,13 +6,18 @@
 {{$layanan->pelayanan}}
 @endsection
  {{-- bagian konten utama --}}
+@if (session('sukses'))
+    <div class="alert alert-success">
+        <p class="text-center">{{ session('sukses') }}</p>
+    </div>
+@endif
 <div class="main-content-inner">
   <div style="margin-bottom:15px">
     <section class="content-header">
       <ol class="breadcrumb">
         <li><a href="{{url('kecamatan/')}}"><i class="fa fa-home"></i> Beranda</a></li>
         <li><a href="{{url('kecamatan/layanan')}}"><i class="fa fa-info"></i> Data Layanan</a></li>
-        <li><a href="#">{{$layanan->pelayanan}}</a></li>
+        <li ><a href="#" class="active">{{$layanan->pelayanan}}</a></li>
       </ol>
     </section>
   </div>
@@ -27,10 +32,11 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>No. Surat Keputusan</th>
                     <th>Nama Pemohon</th>
                     <th>Desa / Kelurahan</th>
                     <th>Status</th>
-                    <th>Detail</th>
+                    <th>Lainnya</th>
                 </tr>
             </thead>
         </table>
@@ -48,7 +54,7 @@
         <ul class="list-group">
           <li class="list-group-item active">Sublayanan {{ $layanan->pelayanan }}</li>
           @foreach ($sublayanan as $item)
-          <li class="list-group-item"><a href="#" data-toggle="tab">{{$item['subpelayanan']}} <small class="label pull-right bg-green">{{$pemohon->where('sublayanan_id',$item->id)->count()}} </small></a></li>
+          <li class="list-group-item"><a href="{{url('/kecamatan/sublayanan/'.$layanan['slug'].'/'.$item['slug'])}}">{{$item['subpelayanan']}} <small class="label pull-right bg-green">{{$pemohon->where('sublayanan_id',$item->id)->count()}} </small></a></li>
           @endforeach
         </ul>
       </div>
@@ -74,6 +80,7 @@
             "ajax"          : "{{url('api/layanan/'.$layanan->slug)}}",
             "columns"       :[
                     {"data" : "DT_RowIndex"},
+                    {"data" : "no_sk"},
                     {"data" : "nama"},
                     {"data" : "nama_daerah"},
                     {'data' : 'status'},

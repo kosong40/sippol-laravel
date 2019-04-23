@@ -54,7 +54,15 @@ class ApiAll extends Controller
 
         return DataTables::of($layanan)
         ->addColumn('action',function($data){
-            return '<a class="btn btn-info btn-sm" href='.url('/kecamatan/layanan').'/'.$data->slug.'/'.$data->id_pemohon.'>Detail </a>';
+            if($data->status == "Belum"){
+                return '<a class="btn btn-info btn-sm" href='.url('/kecamatan/layanan').'/'.$data->slug.'/'.$data->kode.$data->id_pemohon.'>Detail </a>';
+            }elseif($data->status == "Setuju"){
+                return '<a class="btn btn-primary btn-sm" href='.url('/kecamatan/layanan').'/'.$data->slug.'/'.$data->kode.$data->id_pemohon.'/cetak'.'><i class="glyphicon glyphicon-print"></i> Cetak </a>';
+            }
+            else{
+                return '<a class="btn btn-success btn-sm" href='.url('/kecamatan/layanan').'/'.$data->slug.'/'.$data->kode.$data->id_pemohon.'/setujui'.'>Setujui </a>';
+            }
+            
         })
         ->addIndexColumn()
         ->make(true);
@@ -67,5 +75,18 @@ class ApiAll extends Controller
         ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
         ->join('sublayanans','sublayanans.id','=','pemohons.sublayanan_id')
         ->get();
+        return DataTables::of($layanan)
+        ->addColumn('action',function($data){
+        if($data->status == "Belum"){
+            return '<a class="btn btn-info btn-sm" href='.url('/kecamatan/sublayanan').'/'.$data->slug.'/'.$data->kode.$data->id_pemohon.'/detail'.'>Detail </a>';
+        }elseif($data->status == "Setuju"){
+            return '<a class="btn btn-primary btn-sm" href='.url('/kecamatan/sublayanan').'/'.$data->slug.'/'.$data->kode.$data->id_pemohon.'/cetak'.'><i class="glyphicon glyphicon-print"></i> Cetak  </a>';
+        }
+        else{
+            return '<a class="btn btn-success btn-sm" href='.url('/kecamatan/sublayanan').'/'.$data->slug.'/'.$data->kode.$data->id_pemohon.'/setujui'.'>Setujui </a>';
+        }
+        })
+        ->addIndexColumn()
+        ->make(true);
     }
 }

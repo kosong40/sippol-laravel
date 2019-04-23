@@ -28,6 +28,12 @@ class DesaController extends Controller
         ];
         return $pesan;
     }
+    public function generateKode()
+    {
+        $string = "ABCDEFGHIJKLMNOPQRETUVWXYZabcdefghijklmnopqrstuwvxyz1234567890";
+        $acak = substr(str_shuffle($string),0,16);
+        return $acak;
+    }
     public function homeDesa()
     {
         
@@ -153,6 +159,7 @@ class DesaController extends Controller
     {
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
+            'kode'  => $this->generateKode(),
             'nik'   =>  $request['nik'],
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
@@ -216,6 +223,7 @@ class DesaController extends Controller
         // dd($request->all());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
+            'kode'  => $this->generateKode(),
             'nik'   =>  $request['nik'],
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
@@ -283,6 +291,7 @@ class DesaController extends Controller
         // dd($request->all());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
+            'kode'  => $this->generateKode(),
             'nik'   =>  $request['nik'],
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
@@ -339,6 +348,7 @@ class DesaController extends Controller
         // dd($request->all());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
+            'kode'  => $this->generateKode(),
             'nik'   =>  $request['nik'],
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
@@ -386,9 +396,9 @@ class DesaController extends Controller
             DB::table('salon-kecantikan')->insert([
                 'id_pemohon'    => $id_pemohon,
                 'jenis'=>$jenis,
-                'nama_usaha'    => "-",
+                'nama_usaha'    => $request['nama_usaha'],
                 'alamat_usaha'  =>  $request['alamat_usaha'],
-                'nama_usaha_baru'    =>  $request['nama_usaha'],
+                'nama_usaha_baru'    =>  "-",
                 'scan_ktp'      => $path_a.$nama_a,
                 'scan_pengantar'         => $path_b.$nama_b,
                 'created_at'    =>  now(+7.00),
@@ -401,6 +411,7 @@ class DesaController extends Controller
     {
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
+            'kode'  => $this->generateKode(),
             'nik'   =>  $request['nik'],
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
@@ -448,9 +459,9 @@ class DesaController extends Controller
             DB::table('rumah-makan')->insert([
                 'id_pemohon'    => $id_pemohon,
                 'jenis'=>$jenis,
-                'nama_usaha'    => "-",
+                'nama_usaha'    => $request['nama_usaha'],
                 'alamat_usaha'  =>  $request['alamat_usaha'],
-                'nama_usaha_baru'    =>  $request['nama_usaha'],
+                'nama_usaha_baru'    =>  "-",
                 'scan_ktp'          => $path_a.$nama_a,
                 'scan_pengantar'         => $path_b.$nama_b,
                 'created_at'    =>  now(+7.00),
@@ -463,6 +474,7 @@ class DesaController extends Controller
     {
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
+            'kode'  => $this->generateKode(),
             'nik'   =>  $request['nik'],
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
@@ -509,6 +521,7 @@ class DesaController extends Controller
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'nik'   =>  $request['nik'],
+            'kode'      => $this->generateKode(),
             'telepon'   =>  $request['telepon'],
             'pekerjaan' =>  $request['pekerjaan'],
             'rt'    =>  $request['rt'],
@@ -543,6 +556,7 @@ class DesaController extends Controller
         $request->file('struktur_organisasi')->move($path_d,$nama_d);
         DB::table('atraksi-wisata')->insert([
             'id_pemohon'    => $id_pemohon,
+            
             'umur'      => $request['umur'],
             'nama_usaha'    => $request['nama_usaha'],
             'alamat_usaha'  =>  $request['alamat_usaha'],

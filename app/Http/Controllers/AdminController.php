@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
+use App\Helpers\rupiah;
+use App\Helpers\indoValidation;
 use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
@@ -17,19 +19,12 @@ use Datatables;
 
 class AdminController extends Controller
 {
-    public function CustomValidation()
-    {
-        $pesan = [
-            'required'  => 'Form :attribute mohon untuk di isi dan tidak boleh kosong',
-            'numeric'   => 'Form :attribute harus di isi angka',
-            'email'     => 'Form :attribute sesuai dengan format Email contoh NamaAnda12@email.com',
-            'min'       => 'Form :attribute minimal :min karakter',
-            'same'      => 'Form :attribute nilainya harus sama dengan form :other'
-        ];
-        return $pesan;
-    }
     public function login(Request $request)
     {
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ],indoValidation::valid());
         $username   =   $request['username'];
         $password   =   $request['password'];
         $getAdmin   =   Admin::where('username',$username)->get();
@@ -86,17 +81,20 @@ class AdminController extends Controller
     }
     public function homeKec()
     {
-        // dd("token : ".session('token')." token cookie: ".Cookie::get('token_login'));
-        
-        $sidebar  =   Pelayanan::get();
+        $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
+        $dataTotal = count(DB::table('pemohons')->get());
         $pelayanan = Pelayanan::get();
+        $dataLayanan = count($pelayanan);
         $data = [
             'nama'      =>  session('nama'),
             'username'  =>  session('username'),
             'level'     =>  session('level'),
             'token'     =>  session('token'),
-            'sidebar'   =>  $sidebar,
             'pelayanan' =>  $pelayanan,
+            'hariIni'   =>  $dataMasuk,
+            'dataTotal' =>  $dataTotal,
+            'totalPelayanan' => $dataLayanan,
+            'dataAdmin' => count(Admin::where('daerah_id','<>',13)->where('status',1)->where('remember_token','<>',null)->get())
         ];
         return view('kecamatan/beranda',$data);
     }
@@ -119,7 +117,7 @@ class AdminController extends Controller
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ],$this->CustomValidation());
+        ],indoValidation::valid());
         $nama   =   $request['nama'];
         $kontak  =   $request['kontak'];
         $email  =   $request['email'];
@@ -265,19 +263,67 @@ class AdminController extends Controller
           'sublayanan' =>  $sublayanan,
           'sidebar' =>  $sidebar,
           'pemohon' => $pemohon,
-          'Today' => $dataMasuk
+          'Today'   => $dataMasuk
       ];
       return view('kecamatan/data',$data);
     }
+    public function dataSublayanan($slug1,$slug2)
+    {
+        $pelayanan  = Pelayanan::where('slug',$slug1)->get();
+        $sublayanan     = Sublayanan::where('slug',$slug2)->get();
+        $pemohon    =   Pemohon::get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'sublayanan' => $sublayanan,
+            'pelayanan' =>  $pelayanan
+        ];
+        return view('kecamatan/data-sublayanan',$data);
+    }
     public function dataLayananDetail($slug,$id)
     {
-        
-        dd($layanan = DB::table("$slug")
+        // dd($slug);
+        $id_pemohon = substr($id,16,16);
+        $layanan = DB::table("$slug")
         ->join('pemohons','pemohons.id','=',"$slug.id_pemohon")
         ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
         ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
-        ->where("$slug.id_pemohon",$id)
-        ->get());
+        ->where("$slug.id_pemohon",$id_pemohon)
+        ->get();
+        // dd($layanan);
+        $pelayanan = DB::table("$slug")->where("$slug.id_pemohon",$id_pemohon)->get(["id as pemohon_id"]);
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'layanan' => $layanan,
+            'id'    => $pelayanan
+        ];
+        return view('kecamatan/detail',$data);
+    }
+    public function dataSublayananDetail($slug2,$id)
+    {
+        $id_pemohon = substr($id,16,16);
+        $layanan = DB::table("$slug2")
+        ->join('pemohons','pemohons.id','=',"$slug2.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->join('sublayanans','sublayanans.id','=','pemohons.sublayanan_id')
+        ->where("$slug2.id_pemohon",$id_pemohon)
+        ->get();
+        $pelayanan = DB::table("$slug2")->where("$slug2.id_pemohon",$id_pemohon)->get(["id as pemohon_id"]);
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'layanan' => $layanan,
+            'id'    => $pelayanan
+        ];
+        return view('kecamatan/detail',$data);
     }
     public function ubahDataAdmin()
     {
@@ -294,13 +340,65 @@ class AdminController extends Controller
         ];
         return view('kecamatan/profil',$data);
     }
+    public function setujuPermohonan($slug,$id)
+    {
+        $id_pemohon = substr($id,16,16);
+        DB::table("$slug")->where('id_pemohon',$id_pemohon)->update([
+            'status' => "Setuju",
+            'pesan' => "Surat keputusan sudah bisa dicetak",
+            'updated_at' => now(+7.00)
+        ]);
+        return redirect()->back()->with('sukses','Berhasil menambah No.SK');
+    }
+    public function cetakSKLayanan($slug,$id)
+    {
+        $id_pemohon = substr($id,16,16);
+        $daerah = Daerah::where('nama_daerah','Pemalang')->get();
+        $layanan = DB::table("$slug")
+        ->join('pemohons','pemohons.id','=',"$slug.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->where("$slug.id_pemohon",$id_pemohon)
+        ->get();
+        // dd($layanan);
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'layanan' => $layanan,
+            'daerah' => $daerah
+        ];
+        return view("surat/$slug",$data);
+    }
+    public function cetakSKSubayanan($slug2,$id)
+    {
+        $id_pemohon = substr($id,16,16);
+        $layanan = DB::table("$slug2")
+        ->join('pemohons','pemohons.id','=',"$slug2.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->join('sublayanans','sublayanans.id','=','pemohons.sublayanan_id')
+        ->where("$slug2.id_pemohon",$id_pemohon)
+        ->get();
+        $daerah = Daerah::where('nama_daerah','Pemalang')->get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'layanan' => $layanan,
+            'daerah' => $daerah
+        ];
+        return view("surat/$slug2",$data);
+    }
     public function editAkunKecamatan(Request $request)
     {
         $request->validate([
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ],$this->CustomValidation());
+        ],indoValidation::valid());
         Admin::where('username',$request['username'])->update([
             'nama'      => $request['nama'],
             'kontak'    => $request['kontak'],
@@ -320,7 +418,7 @@ class AdminController extends Controller
             'passlama'  => 'required',
             'passbaru'  => 'required|min:8',
             'passulang' =>  'required|min:8|same:passbaru'
-        ],$this->CustomValidation());
+        ],indoValidation::valid());
 
         foreach($admin as $admin){
             if(Hash::check($request['passlama'], $admin->password)){
@@ -341,8 +439,8 @@ class AdminController extends Controller
     {
         $request->validate([
             'camat'  => 'required',
-            'nip'   =>  'required|numeric'
-        ],$this->CustomValidation());
+            'nip'   =>  'required'
+        ],indoValidation::valid());
         Daerah::where('id',$id)->update([
             'kepala_daerah' => $request['camat'],
             'nip'           =>  $request['nip']
@@ -362,6 +460,20 @@ class AdminController extends Controller
        
         
     }
-
- 
+    public function noSKLayanan($id,$slug,Request $request)
+    {
+        // dd(implode("/",$request->no_sk));
+        // dd(DB::table("$slug")->where('id',$id)->get());
+        $add    =   DB::table("$slug")->where('id',$id)->update([
+            'no_sk' => implode("/",$request->no_sk),
+            'status' => "Sudah ada nomor SK",
+            'pesan' => "Sudah diberi nomor SK, Tinggal tunggu disetujui maka surat izin akan diterbitkan",
+            'updated_at' => now(+7.00)
+        ]);
+        return redirect()->back()->with('sukses','Berhasil menambah No.SK');
+    }
+    public function cek()
+    {
+        dd("Testing");
+    }
 }

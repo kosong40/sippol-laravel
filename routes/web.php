@@ -13,8 +13,14 @@ use Illuminate\Support\Facades\Cookie;
 */
 Route::get('/testing',function(){
     // return view('testing');
-    dd(Cookie::get('laravel_session'));
+    // dd(Cookie::get('laravel_session'));
+    // $string = "ABCDEFGHIJKLMNOPQRETUVWXYZabcdefghijklmnopqrstuwvxyz1234567890";
+    // $acak = substr(str_shuffle($string),0,16);
+    // dd(substr("RUHGOAEw1bI2MZyV1",16,16));
+    // dd($acak);
+    return view('surat/dispensasi-nikah');
 });
+Route::get('/tes','AdminController@cek');
 Route::post('/testing/upload','AdminController@testing');
 Route::get('/', function () {
     return view('index');
@@ -37,6 +43,12 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/layanan','AdminController@dataPelayanan');
         Route::get('/layanan/{slug}','AdminController@dataLayanan');
         Route::get('/layanan/{slug}/{id}','AdminController@dataLayananDetail');
+        Route::get('/layanan/{slug}/{id}/setujui','AdminController@setujuPermohonan');
+        Route::get('/layanan/{slug}/{id}/cetak','AdminController@cetakSKLayanan');
+        Route::get('/sublayanan/{slug1}/{slug2}','AdminController@dataSublayanan');
+        Route::get('/sublayanan/{slug2}/{id}/detail','AdminController@dataSublayananDetail');
+        Route::get('/sublayanan/{slug2}/{id}/setujui','AdminController@setujuPermohonan');
+        Route::get('/sublayanan/{slug2}/{id}/cetak','AdminController@cetakSKSubayanan');
         Route::get('/profil','AdminController@ubahDataAdmin');
         Route::get('/pelayanan','AdminController@pelayanan');
         Route::post('/pelayanan/ubah/{slug}','AdminController@ubahKetPelayanan');
@@ -46,6 +58,7 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::post('/profil/akun','AdminController@editAkunKecamatan');
         Route::post('/profil/password','AdminController@editAkunKecamatanPass');
         Route::post('/profil/info/{id}','AdminController@editInfoKecamatan');
+        Route::post('/formulir/{id}/{slug}/no-sk','AdminController@noSKLayanan')->name('no_sk');
     });
     Route::group(['prefix' => 'desa','middleware'=>'desa'], function () {
         Route::get('/','DesaController@homeDesa');

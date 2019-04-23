@@ -20,3 +20,4 @@ Route::get('/pelayananlist','ApiAll@pelayanan');
 Route::get('/desakelurahan','ApiAll@desakelurahan');
 Route::get('/akunpage','ApiAll@HalamanAkun');
 Route::get('/layanan/{slug}','ApiAll@dataLayanan');
+Route::get('/layanan/{slug1}/{slug2}','ApiAll@dataSublayanan');

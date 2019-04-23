@@ -58,6 +58,7 @@ class CreateAllTable extends Migration
 
         Schema::create('pemohons', function (Blueprint $table) {
             $table->Increments('id');
+            $table->string('kode',16)->unique();
             $table->string('nama');
             $table->string('nik',16);
             $table->string('telepon');

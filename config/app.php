@@ -162,6 +162,8 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
+        App\Providers\RupiahServiceProvider::class,
+        App\Providers\IndoValidationServiceProvider::class,
 
     ],
 
@@ -213,6 +215,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Rupiah' => App\Helpers\Rupiah::class,
+        'indoValidation' => App\Helpers\indoValidation::class,
 
     ],
 
