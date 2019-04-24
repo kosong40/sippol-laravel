@@ -57,7 +57,6 @@
                             <label for="exampleInputPassword1">Kata Sandi</label>
                             <input type="password" name="password" id="exampleInputPassword1">
                             <a onclick="show()" href="#"><i class="ti-lock"> </i></a>
-                           
                         </div>
                         @csrf
                         <div class="submit-btn-area">

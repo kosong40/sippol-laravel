@@ -7,8 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Cookie;
-use App\Helpers\rupiah;
-use App\Helpers\indoValidation;
+use App\Helpers\kustom;
 use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
@@ -24,7 +23,7 @@ class AdminController extends Controller
         $request->validate([
             'username' => 'required',
             'password' => 'required'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
         $username   =   $request['username'];
         $password   =   $request['password'];
         $getAdmin   =   Admin::where('username',$username)->get();
@@ -81,6 +80,7 @@ class AdminController extends Controller
     }
     public function homeKec()
     {
+        // dd(Kustom::getRupiah(21111111));
         $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
         $dataTotal = count(DB::table('pemohons')->get());
         $pelayanan = Pelayanan::get();
@@ -117,7 +117,7 @@ class AdminController extends Controller
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
         $nama   =   $request['nama'];
         $kontak  =   $request['kontak'];
         $email  =   $request['email'];
@@ -398,7 +398,7 @@ class AdminController extends Controller
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
         Admin::where('username',$request['username'])->update([
             'nama'      => $request['nama'],
             'kontak'    => $request['kontak'],
@@ -418,7 +418,7 @@ class AdminController extends Controller
             'passlama'  => 'required',
             'passbaru'  => 'required|min:8',
             'passulang' =>  'required|min:8|same:passbaru'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
 
         foreach($admin as $admin){
             if(Hash::check($request['passlama'], $admin->password)){
@@ -440,7 +440,7 @@ class AdminController extends Controller
         $request->validate([
             'camat'  => 'required',
             'nip'   =>  'required'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
         Daerah::where('id',$id)->update([
             'kepala_daerah' => $request['camat'],
             'nip'           =>  $request['nip']

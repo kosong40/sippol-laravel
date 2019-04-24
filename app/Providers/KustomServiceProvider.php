@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
-class IndoValidationServiceProvider extends ServiceProvider
+class KustomServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap services.
@@ -23,6 +23,6 @@ class IndoValidationServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        require_once app_path() . '/Helpers/indoValidation.php';
+        require_once app_path() . '/Helpers/kustom.php';
     }
 }
