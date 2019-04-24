@@ -100,56 +100,24 @@
                     <div class="col-sm-6">
                         <strong> Scan KTP:</strong>
                         <p class="text-muted">
-                            <a href="#a" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_ktp")}}" target="_blank" class="btn btn-info btn-xs">Lihat</a>
                         </p>
                         <strong> Scan Pengantar:</strong>
                         <p class="text-muted">
-                            <a href="#b" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_pengantar")}}" target="_blank" class="btn btn-info btn-xs">Lihat</a>
                         </p>
                         <strong> Scan Pernyataan dari {{$item->jenis_daerah}}:</strong>
                         <p class="text-muted">
-                            <a href="#c" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_pernyataan_desa")}}" target="_blank" class="btn btn-info btn-xs">Lihat</a>
                         </p>
                         <strong> Struktur Organisasi :</strong>
                         <p class="text-muted">
-                            <a href="#d" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->struktur_organisasi")}}" target="_blank" class="btn btn-info btn-xs">Lihat</a>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div id="a" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_ktp")}}" >
-        </div>          
-    </div>
-</div>
-<div id="b" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_pengantar")}}" >
-        </div>          
-    </div>
-</div>
-<div id="c" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_pernyataan_desa")}}" >
-        </div>          
-    </div>
-</div>
-<div id="d" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->struktur_organisasi")}}" >
-        </div>          
     </div>
 </div>
 <div id="addNo" class="modal fade" role="dialog">

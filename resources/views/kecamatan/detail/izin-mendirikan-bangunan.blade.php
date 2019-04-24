@@ -99,80 +99,32 @@
                     <div class="col-sm-6">
                         <strong> Scan KTP:</strong>
                         <p class="text-muted">
-                            <a href="#a" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_ktp")}}" class="btn btn-info btn-xs" target="_blank">Lihat</a>
                         </p>
                         <strong> Scan Surat Persetujuan dari Tetangga:</strong>
                         <p class="text-muted">
-                            <a href="#b" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_persetujuan_tetangga")}}" class="btn btn-info btn-xs" target="_blank">Lihat</a>
                         </p>
                         <strong> Scan Kepemilikan Tanah:</strong>
                         <p class="text-muted">
-                            <a href="#c" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_fc_kepemilikan_tanah")}}" class="btn btn-info btn-xs" target="_blank">Lihat</a>
                         </p>
                         <strong> Scan SPPT PBB Terakhir:</strong>
                         <p class="text-muted">
-                            <a href="#d" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                           <a href="{{url("$item->scan_fc_sppt_pbb_terakhir")}}" class="btn btn-info btn-xs" target="_blank">Lihat</a>
                         </p>
                         <strong> Gambar Rencana Bangunan:</strong>
                         <p class="text-muted">
-                            <a href="#e" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_gambar_rencana")}}" class="btn btn-info btn-xs" target="_blank">Lihat</a>
                         </p>
                         <strong> Scan Pernyataan:</strong>
                         <p class="text-muted">
-                            <a href="#f" class="btn btn-info btn-xs" data-toggle="modal">Lihat</a>
+                            <a href="{{url("$item->scan_pengantar")}}" class="btn btn-info btn-xs" target="_blank">Lihat</a>
                         </p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<div id="a" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_ktp")}}" >
-        </div>          
-    </div>
-</div>
-<div id="b" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_persetujuan_tetangga")}}" >
-        </div>          
-    </div>
-</div>
-<div id="c" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_fc_kepemilikan_tanah")}}" >
-        </div>          
-    </div>
-</div>
-<div id="d" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_fc_sppt_pbb_terakhir")}}" >
-        </div>          
-    </div>
-</div>
-<div id="e" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_gambar_rencana")}}" >
-        </div>          
-    </div>
-</div>
-<div id="f" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <img class="img-thumbnail" src="{{url("$item->scan_pengantar")}}" >
-        </div>          
     </div>
 </div>
 <div id="addNo" class="modal fade" role="dialog">

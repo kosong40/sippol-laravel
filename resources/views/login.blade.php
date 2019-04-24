@@ -64,12 +64,16 @@
                         </div>
                         @if($errors->get('username'))
                             @foreach ($errors->get('username') as $pesan)
-                                <label for="" style="color:#f56954">{{$pesan}}</label>
+                        <div class="alert alert-danger" role="alert">
+                            <p align="center">{{$pesan}}</p>
+                        </div>
                             @endforeach
                         @endif
                             @if($errors->get('password'))
                             @foreach ($errors->get('password') as $pesan)
-                                <label for="" style="color:#f56954">{{$pesan}}</label>
+                        <div class="alert alert-danger" role="alert">
+                            <p align="center">{{$pesan}}</p>
+                        </div>
                             @endforeach
                         @endif
                         @if (session('gagal'))
