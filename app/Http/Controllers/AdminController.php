@@ -211,7 +211,10 @@ class AdminController extends Controller
     }
     public function dataPelayanan()
     {
-        // dd(Pemohon::find(2)->imb());
+        // dd(Kustom::CountPrint());
+        $dataPrint = Kustom::CountPrint();
+        $dataSetuju = Kustom::CountSetuju();
+        $dataBelum = Kustom::CountBelum();
         $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
         $pemohon    =   [];
         $pelayanan = Pelayanan::get();
@@ -222,8 +225,11 @@ class AdminController extends Controller
             'level'     =>  session('level'),
             'token'     =>  session('token'),
             'pemohon'   =>  $pemohon,
-            'data' => $dataMasuk,
+            'data'      => $dataMasuk,
             'pelayanan' =>  $pelayanan,
+            'dataPrint' => $dataPrint,
+            'dataSetuju'=> $dataSetuju,
+            'dataBelum' => $dataBelum
         ];
         return view('kecamatan/data-pelayanan',$data);
     }

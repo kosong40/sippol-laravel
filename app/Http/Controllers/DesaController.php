@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
-use App\Helpers\rupiah;
-use App\Helpers\indoValidation;
+use App\Helpers\kustom;
 use App\Admin;
 use App\Daerah;
 use App\Pelayanan;
@@ -59,7 +58,7 @@ class DesaController extends Controller
             'nama' => 'required',
             'kontak' => 'numeric|required',
             'email' => 'email|required'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
         Admin::where('username',$request['username'])->update([
             'nama'      => $request['nama'],
             'kontak'    => $request['kontak'],
@@ -78,7 +77,7 @@ class DesaController extends Controller
             'passlama'  => 'required',
             'passbaru'  => 'required|min:8',
             'passulang' =>  'required|min:8|same:passbaru'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
 
         foreach($admin as $admin){
             if(Hash::check($request['passlama'], $admin->password)){
@@ -100,7 +99,7 @@ class DesaController extends Controller
         $request->validate([
             'kades'  => 'required',
             'nip'   =>  'required|numeric'
-        ],indoValidation::valid());
+        ],Kustom::validasi());
         Daerah::where('id',$id)->update([
             'kepala_daerah' => $request['kades'],
             'nip'           =>  $request['nip']
@@ -145,8 +144,30 @@ class DesaController extends Controller
         ];
         return view('desa/formulir/subpelayanan/'.$slug1,$data);
     }
+    //IMB
     public function imb(Request $request)
     {
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'keperluan_bangunan'        => 'required',
+            'konstruksi_bangunan'       => 'required',
+            'luas_bangunan'             => 'required',
+            'luas_tanah'                => 'required',
+            'letak_bangunan'            => 'required',
+            'pemilik_tanah'             => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_persetujuan_tetangga' => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_fc_kepemilikan_tanah' => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_fc_sppt_pbb_terakhir' => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_gambar_rencana'       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'kode'  => $this->generateKode(),

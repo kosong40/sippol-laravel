@@ -49,13 +49,13 @@
                     <div class="login-form-body">
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" name="username" id="exampleInputEmail1">
+                            <input type="text" name="username" id="exampleInputEmail1" autocomplete="off">
                             <i class="ti-user"></i>
                             
                         </div>
                         <div class="form-gp">
                             <label for="exampleInputPassword1">Kata Sandi</label>
-                            <input type="password" name="password" id="exampleInputPassword1">
+                            <input type="password" name="password" id="exampleInputPassword1" autocomplete="off">
                             <a onclick="show()" href="#"><i class="ti-lock"> </i></a>
                         </div>
                         @csrf

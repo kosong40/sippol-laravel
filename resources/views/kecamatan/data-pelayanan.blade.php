@@ -12,7 +12,44 @@
     <div class="container-fluid">
     <div class="row">
     <div class="col-sm-9">
-        <h1>Data masuk hari ini : {{$data}}</h1>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="small-box bg-green">
+                    <div class="inner">
+                        <h3>{{$dataSetuju}}</h3>
+                        <p>Data siap cetak</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-print"></i>
+                    </div>
+                    <a href="" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="small-box bg-yellow">
+                    <div class="inner">
+                        <h3>{{$dataPrint}}</h3>
+                        <p>Belum disetujui</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-refresh"></i>
+                    </div>
+                    <a href="" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="small-box bg-red">
+                    <div class="inner">
+                        <h3>{{$dataBelum}}</h3>
+                        <p>Belum ada No. SK</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-document"></i>
+                    </div>
+                    <a href="" class="small-box-footer">Lihat Selengkapnya <i class="fa fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-sm-3">
     <ul class="list-group">
