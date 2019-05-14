@@ -229,9 +229,31 @@ class DesaController extends Controller
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Mendirikan Bangunan');
     }
     
+    // REKMLAME
     function reklameForm(Request $request)
     {
         // dd($request->all());
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'jenis_reklame'        => 'required',
+            'banyak'       => 'required',
+            'pesan_produk'             => 'required',
+            'tempat_reklame'                => 'required',
+            'tanggal_awal'            => 'required|before:tanggal_akhir',
+            'tanggal_akhir'             => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_npwp'                 => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'contoh_reklame' => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_persetujuan'       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_izin_lama'       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'kode'  => $this->generateKode(),
@@ -251,7 +273,7 @@ class DesaController extends Controller
         $b  =   $request->file('scan_npwp');
         $c  =   $request->file('contoh_reklame');
         $d  =   $request->file('scan_persetujuan');
-        $e  =   $request->file('scan_persetujuan');
+        $e  =   $request->file('scan_izin_lama');
         $f  =   $request->file('scan_pengantar');
         //scan ktp
         $path_a =   "berkas/reklame/a/";
@@ -297,9 +319,32 @@ class DesaController extends Controller
         ]);
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Reklame');
     }
+
+    //IUMK
     public function iumkForm(Request $request)
     {
         // dd($request->all());
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'nama_usaha'        => 'required',
+            'alamat_usaha'       => 'required',
+            'kodepos'                => 'required|numeric',
+            'sektor_usaha'            => 'required',
+            'klasifikasi' => 'required',
+            'sarana'             => 'required',
+            'modal'             => 'required|numeric',
+            'npwp'             => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_kk'                 => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'foto'       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'kode'  => $this->generateKode(),
@@ -354,8 +399,24 @@ class DesaController extends Controller
         ]);
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Usaha Mikro dan Kecil');
     }
+
+    //SALON FORM
     public function salonForm(Request $request)
     {
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'jenis'                     => 'required',
+            'nama_usaha'                => 'required',
+            'alamat_usaha'              => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         // dd($request->all());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
@@ -420,6 +481,20 @@ class DesaController extends Controller
     }
     public function rmForm(Request $request)
     {
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'jenis'                     => 'required',
+            'nama_usaha'                => 'required',
+            'alamat_usaha'              => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'kode'  => $this->generateKode(),
@@ -481,8 +556,24 @@ class DesaController extends Controller
         }
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Rumah Makan');
     }
+    //Gelanggang Ketangkasan
     public function gkForm(Request $request)
     {
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'jumlah_monitor'            => 'required|numeric',
+            'nama_usaha'                => 'required',
+            'alamat_usaha'              => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pernyataan_desa'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'kode'  => $this->generateKode(),
@@ -527,8 +618,27 @@ class DesaController extends Controller
         ]);
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Gelanggang Ketangkasan');
     }
+    //Atraksi Wisata
     public function awForm(Request $request)
     {
+        $request->validate([
+            'nama_pemohon'              => 'required',
+            'nik'                       => 'required|min:16|max:18',
+            'telepon'                   => 'required',
+            'pekerjaan'                 => 'required',
+            'rt'                        => 'required',
+            'rw'                        => 'required',
+            'jalan'                     => 'required',
+            'jumlah_karyawan'            => 'required|numeric',
+            'nilai_aset'            => 'required|numeric',
+            'umur'  => 'required|numeric',
+            'nama_usaha'                => 'required',
+            'alamat_usaha'              => 'required',
+            'ktp'                       => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pengantar'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'scan_pernyataan_desa'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+            'struktur_organisasi'            => 'required | mimes:jpeg,jpg,png,PNG,pdf,txt | max:2048',
+        ],Kustom::validasi());
         $pemohon = Pemohon::create([
             'nama'  =>  $request['nama_pemohon'],
             'nik'   =>  $request['nik'],

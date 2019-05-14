@@ -7,7 +7,7 @@
         @csrf
             <div class="form-group">
                 <label for="" class="label-control">Nama Pemohon</label>
-                <input type="text" class="form-control" placeholder="Nama Pemohon" name="nama_pemohon">
+                <input type="text" class="form-control" value="{{old('nama_pemohon')}}" placeholder="Nama Pemohon" name="nama_pemohon">
                 @if($errors->get('nama_pemohon'))
                     @foreach ($errors->get('nama_pemohon') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">NIK</label>
-                <input type="text" class="form-control" placeholder="NIK" name="nik">
+                <input type="text" class="form-control" value="{{old('nik')}}" placeholder="NIK" name="nik">
                 @if($errors->get('nik'))
                     @foreach ($errors->get('nik') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -25,7 +25,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">No. Telepon</label>
-                <input type="text" class="form-control" placeholder="Nomor Telepon" name="telepon">
+                <input type="text" class="form-control" value="{{old('telepon')}}" placeholder="Nomor Telepon" name="telepon">
                 @if($errors->get('telepon'))
                     @foreach ($errors->get('telepon') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -34,14 +34,14 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Pekerjaan</label>
-                <input type="text" class="form-control" name="pekerjaan">
+                <input type="text" class="form-control" value="{{old('pekerjaan')}}" name="pekerjaan">
             </div>
             <label for="" class="label-control">Alamat</label>
             <div class="row">
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="" class="label-control">RT</label>
-                        <input type="text" class="form-control" placeholder="RT" name="rt">
+                        <input type="text" class="form-control" value="{{old('rt')}}" placeholder="RT" name="rt">
                         @if($errors->get('rt'))
                             @foreach ($errors->get('rt') as $pesan)
                                 <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -52,7 +52,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="" class="label-control">RW</label>
-                        <input type="text" class="form-control" placeholder="RW" name="rw">
+                        <input type="text" class="form-control" value="{{old('rw')}}" placeholder="RW" name="rw">
                         @if($errors->get('rw'))
                             @foreach ($errors->get('rw') as $pesan)
                                 <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -65,7 +65,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="" class="label-control">Jalan / Dusun</label>
-                        <input type="text" class="form-control" placeholder="Jalan / Dusun " name="jalan">
+                        <input type="text" class="form-control" value="{{old('jalan')}}" placeholder="Jalan / Dusun " name="jalan">
                         @if($errors->get('jalan'))
                             @foreach ($errors->get('jalan') as $pesan)
                                 <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -89,7 +89,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Jenis Reklame</label>
-                <input type="text" class="form-control" name="jenis_reklame">
+                <input type="text" class="form-control" value="{{old('jenis_reklame')}}" name="jenis_reklame">
                 @if($errors->get('jenis_reklame'))
                     @foreach ($errors->get('jenis_reklame') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -98,7 +98,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Banyaknya</label>
-                <input type="number" class="form-control" name="banyak">
+                <input type="number" class="form-control" value="{{old('banyak')}}" name="banyak">
                 @if($errors->get('banyak'))
                     @foreach ($errors->get('banyak') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -107,7 +107,7 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Pesan Produk</label>
-                <input type="text" class="form-control" name="pesan_produk">
+                <input type="text" class="form-control" value="{{old('pesan_produk')}}" name="pesan_produk">
                 @if($errors->get('pesan_produk'))
                     @foreach ($errors->get('pesan_produk') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -121,7 +121,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="" class="label-control">Tanggal Awal</label>
-                        <input type="date" class="form-control"  name="tanggal_awal">
+                        <input type="date" class="form-control" value="{{old('tanggal_awal')}}"  name="tanggal_awal">
                         @if($errors->get('tanggal_awal'))
                             @foreach ($errors->get('tanggal_awal') as $pesan)
                                 <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -132,7 +132,7 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="" class="label-control">Tanggal Akhir</label>
-                        <input type="date" class="form-control"  name="tanggal_akhir">
+                        <input type="date" class="form-control" value="{{old('tanggal_akhir')}}"  name="tanggal_akhir">
                         @if($errors->get('tanggal_akhir'))
                             @foreach ($errors->get('tanggal_akhir') as $pesan)
                                 <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
@@ -143,9 +143,9 @@
             </div>
             <div class="form-group">
                 <label for="" class="label-control">Tempat Pemasangan Reklame</label>
-                <input type="text" class="form-control" name="tempat_reklame">
-                @if($errors->get('tanggal_akhir'))
-                    @foreach ($errors->get('tanggal_akhir') as $pesan)
+                <input type="text" class="form-control" value="{{old('tempat_reklame')}}" name="tempat_reklame">
+                @if($errors->get('tempat_reklame'))
+                    @foreach ($errors->get('tempat_reklame') as $pesan)
                         <li><label for="" style="color:#f56954">{{$pesan}}</label></li>
                     @endforeach
                 @endif

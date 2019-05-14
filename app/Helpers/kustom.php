@@ -85,7 +85,7 @@ class kustom {
         $ir = count(DB::table('izin-reklame')->where('status','Sudah ada nomor SK')->get());
         $aw = count(DB::table('atraksi-wisata')->where('status','Sudah ada nomor SK')->get());
         $gk = count(DB::table('gelanggang-ketangkasan')->where('status','Sudah ada nomor SK')->get());
-        $iumk = count(DB::table('izin-usaha-mirko-dan-kecil')->where('status','Sudah ada nomor SK')->get());
+        $iumk = count(DB::table('izin-usaha-mikro-dan-kecil')->where('status','Sudah ada nomor SK')->get());
         $sk = count(DB::table('salon-kecantikan')->where('status','Sudah ada nomor SK')->get());
         $rm = count(DB::table('rumah-makan')->where('status','Sudah ada nomor SK')->get());
         $sum = array_sum([$ir,$imb,$aw,$gk,$iumk,$sk,$rm]);
@@ -97,7 +97,7 @@ class kustom {
         $ir = count(DB::table('izin-reklame')->where('status','Setuju')->get());
         $aw = count(DB::table('atraksi-wisata')->where('status','Setuju')->get());
         $gk = count(DB::table('gelanggang-ketangkasan')->where('status','Setuju')->get());
-        $iumk = count(DB::table('izin-usaha-mirko-dan-kecil')->where('status','Setuju')->get());
+        $iumk = count(DB::table('izin-usaha-mikro-dan-kecil')->where('status','Setuju')->get());
         $sk = count(DB::table('salon-kecantikan')->where('status','Setuju')->get());
         $rm = count(DB::table('rumah-makan')->where('status','Setuju')->get());
         $sum = array_sum([$ir,$imb,$aw,$gk,$iumk,$sk,$rm]);
@@ -108,7 +108,7 @@ class kustom {
         $ir = count(DB::table('izin-reklame')->where('status','Belum')->get());
         $aw = count(DB::table('atraksi-wisata')->where('status','Belum')->get());
         $gk = count(DB::table('gelanggang-ketangkasan')->where('status','Belum')->get());
-        $iumk = count(DB::table('izin-usaha-mirko-dan-kecil')->where('status','Belum')->get());
+        $iumk = count(DB::table('izin-usaha-mikro-dan-kecil')->where('status','Belum')->get());
         $sk = count(DB::table('salon-kecantikan')->where('status','Belum')->get());
         $rm = count(DB::table('rumah-makan')->where('status','Belum')->get());
         $sum = array_sum([$ir,$imb,$aw,$gk,$iumk,$sk,$rm]);

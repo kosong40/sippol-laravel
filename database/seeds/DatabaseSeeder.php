@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
         $tidk   =   "Perizinan Tidak Terstruktur";
         $imb    =   "Izin Mendirikan Bangunan";
         $ir     =   "Izin Reklame";
-        $iumk   =   "Izin Usaha Mirko dan Kecil";
+        $iumk   =   "Izin Usaha Mikro dan Kecil";
         $iup    =   "Izin Usaha Pariwisata";
         $skpp   =   "Surat Keterangan Pindah Penduduk";
         $dp     =   "Dispensasi Nikah";

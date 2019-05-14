@@ -116,7 +116,7 @@ class CreateAllTable extends Migration
             $table->string('status')->default('Belum');
             $table->timestamps();
         });
-        Schema::create('izin-usaha-mirko-dan-kecil',function(Blueprint $table){
+        Schema::create('izin-usaha-mikro-dan-kecil',function(Blueprint $table){
             $table->Increments('id');
             $table->Integer('id_pemohon')->unsigned();
             $table->foreign('id_pemohon')->references('id')->on('pemohons');
