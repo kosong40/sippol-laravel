@@ -84,6 +84,8 @@ class AdminController extends Controller
         $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
         $dataTotal = count(DB::table('pemohons')->get());
         $pelayanan = Pelayanan::get();
+        $pemohon = Pemohon::get();
+        $daerah = Daerah::where('nama_daerah','<>','Pemalang')->get();
         $dataLayanan = count($pelayanan);
         $data = [
             'nama'      =>  session('nama'),
@@ -94,6 +96,9 @@ class AdminController extends Controller
             'hariIni'   =>  $dataMasuk,
             'dataTotal' =>  $dataTotal,
             'totalPelayanan' => $dataLayanan,
+            'pemohon' => $pemohon,
+            'daerah' => $daerah,
+            'daer' =>$daerah,
             'dataAdmin' => count(Admin::where('daerah_id','<>',13)->where('status',1)->where('remember_token','<>',null)->get())
         ];
         return view('kecamatan/beranda',$data);

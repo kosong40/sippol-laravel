@@ -1,5 +1,9 @@
 @extends('layout.admin') 
 @section('konten')
+@php
+$banyak = count($pelayanan);
+$banyakD = count($daerah);
+@endphp
 <div class="main-content-inner">
     <div class="container-fluid">
         <div class="row">
@@ -60,6 +64,19 @@
 
         </div>
     </div>
+    <div class="row">
+    <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Data masuk berdasarkan Daerah</h3>
+                </div>
+                <div class="box-body">
+                    <canvas id="bukan"></canvas>
+                </div>
+            </div>
+        </div>    
+    </div>
 </div>
 <!-- main content area end -->
 @endsection
@@ -77,5 +94,54 @@
             
         })
     });
+</script>
+<script src="{{url('js/charts.js')}}"></script>
+
+<script>
+var ctx = document.getElementById('bukan').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: [
+            @foreach ($daerah as $daerah)
+            @php
+                $daerah= $daerah['nama_daerah'];
+            @endphp
+                '{{"$daerah"}}',
+                
+            @endforeach
+        ],
+        datasets: [{
+            label: 'Banyak',
+            data: [
+                @foreach ($daer as $item)
+                    '{{$pemohon->where("daerah_id",$item->id)->count()}}',
+                @endforeach
+            ],
+            backgroundColor: [
+                @for($i=0;$i<$banyakD;$i++)
+                    '#{{substr(str_shuffle("abcdef1234567890"),0,6)}}',
+                
+                @endfor
+            ],
+            borderColor: [
+               @for($i=0;$i<$banyakD;$i++)
+                   '#{{substr(str_shuffle("abcdef1234567890"),0,6)}}',
+               
+               @endfor
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
 </script>
 @endsection

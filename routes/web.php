@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Cookie;
 |
 */
 Route::get('/testing',function(){
-    // return view('testing');
+    return view('testing');
     // dd(Cookie::get('laravel_session'));
     // $string = "ABCDEFGHIJKLMNOPQRETUVWXYZabcdefghijklmnopqrstuwvxyz1234567890";
     // $acak = substr(str_shuffle($string),0,16);
     // dd(substr("RUHGOAEw1bI2MZyV1",16,16));
     // dd($acak);
-    return view('surat/dispensasi-nikah');
+    // return view('surat/dispensasi-nikah');
 });
 Route::get('/tes','AdminController@cek');
 Route::post('/testing/upload','AdminController@testing');
