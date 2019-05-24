@@ -80,7 +80,6 @@ class AdminController extends Controller
     }
     public function homeKec()
     {
-        // dd(Kustom::getRupiah(21111111));
         $dataMasuk = count(DB::table("pemohons")->whereDate('created_at', DB::raw('CURDATE()'))->get());
         $dataTotal = count(DB::table('pemohons')->get());
         $pelayanan = Pelayanan::get();
@@ -355,9 +354,12 @@ class AdminController extends Controller
     {
         $id_pemohon = substr($id,16,16);
         DB::table("$slug")->where('id_pemohon',$id_pemohon)->update([
-            'status' => "Setuju",
+            // 'status' => "Setuju",
             'pesan' => "Surat keputusan sudah bisa dicetak",
             'updated_at' => now(+7.00)
+        ]);
+        Pemohon::where('id',$id_pemohon)->update([
+            'status' => 'Setuju'
         ]);
         return redirect()->back()->with('sukses','Berhasil menambah No.SK');
     }

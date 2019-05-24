@@ -72,6 +72,7 @@ class CreateAllTable extends Migration
             $table->foreign('pelayanan_id')->references('id')->on('pelayanans');
             $table->Integer('sublayanan_id')->unsigned()->nullable();
             $table->foreign('sublayanan_id')->references('id')->on('sublayanans');
+            $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('izin-reklame',function(Blueprint $table){
@@ -92,7 +93,7 @@ class CreateAllTable extends Migration
             $table->string('scan_izin_lama')->nullable();
             $table->string('scan_pengantar');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('izin-mendirikan-bangunan',function(BLueprint $table){
@@ -113,7 +114,7 @@ class CreateAllTable extends Migration
             $table->string('scan_gambar_rencana');
             $table->string('scan_pengantar');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('izin-usaha-mikro-dan-kecil',function(Blueprint $table){
@@ -134,7 +135,7 @@ class CreateAllTable extends Migration
             $table->string('scan_pengantar');
             $table->string('foto');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('salon-kecantikan',function(Blueprint $table){
@@ -149,7 +150,7 @@ class CreateAllTable extends Migration
             $table->string('scan_ktp');
             $table->string('scan_pengantar');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('gelanggang-ketangkasan',function(Blueprint $table){
@@ -164,7 +165,7 @@ class CreateAllTable extends Migration
             $table->string('scan_pengantar');
             $table->string('scan_pernyataan_desa');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('atraksi-wisata',function(Blueprint $table){
@@ -182,7 +183,7 @@ class CreateAllTable extends Migration
             $table->string('scan_pernyataan_desa');
             $table->string('struktur_organisasi');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
         Schema::create('rumah-makan',function(Blueprint $table){
@@ -197,7 +198,7 @@ class CreateAllTable extends Migration
             $table->string('scan_ktp');
             $table->string('scan_pengantar');
             $table->string('pesan')->nullable();
-            $table->string('status')->default('Belum');
+            // $table->string('status')->default('Belum');
             $table->timestamps();
         });
     }
