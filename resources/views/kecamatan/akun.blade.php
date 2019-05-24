@@ -4,9 +4,12 @@
     <div class="container">
         <h2 align="center">Halaman Akun</h2>
         @if (session('sukses'))
-        <br>
         <div class="alert alert-success" role="alert">
             <p align="center">{{session('sukses')}}</p>
+        </div>
+        @elseif(session('gagal'))
+        <div class="alert alert-danger" role="alert">
+            <p align="center">{{session('gagal')}}</p>
         </div>
         @endif
         <div class="row">

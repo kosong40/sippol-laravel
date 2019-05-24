@@ -125,7 +125,12 @@ class AdminController extends Controller
         $nama   =   $request['nama'];
         $kontak  =   $request['kontak'];
         $email  =   $request['email'];
+        $cekEmail = Admin::where('email',$email)->get();
+        if(count($cekEmail) == 1){
+            return redirect()->back()->with('gagal','Email sudah terdaftar');
+        }else{
         $daerah  =   Daerah::where('nama_daerah',str_replace("Admin","",$request['username']))->get();
+
         foreach($daerah as $a){
             Admin::create([
                 'username'  =>  $request['username'],
@@ -146,7 +151,7 @@ class AdminController extends Controller
             ]);
         }
         return redirect()->back()->with('sukses','Berhasil menambahkan admin');
-
+    }
     }
     public function editAkun($username,Request $request)
     {

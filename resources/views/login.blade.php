@@ -49,7 +49,7 @@
                     <div class="login-form-body">
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" name="username" id="exampleInputEmail1" autocomplete="off">
+                            <input type="text" name="username" id="exampleInputEmail1" autocomplete="on">
                             <i class="ti-user"></i>
                             
                         </div>
