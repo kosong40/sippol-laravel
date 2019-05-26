@@ -15,6 +15,7 @@ use App\Sublayanan;
 use App\Pemohon;
 use App\imb;
 use Datatables;
+use PDF;
 
 class AdminController extends Controller
 {
@@ -22,7 +23,8 @@ class AdminController extends Controller
     {
         $request->validate([
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
+            'kode' => 'required|same:kode_capcha'
         ],Kustom::validasi());
         $username   =   $request['username'];
         $password   =   $request['password'];
@@ -389,6 +391,30 @@ class AdminController extends Controller
         ];
         return view("surat/$slug",$data);
     }
+    public function cetakSKLayananPDF($slug,$id)
+    {
+        $id_pemohon = substr($id,16,16);
+        $daerah = Daerah::where('nama_daerah','Pemalang')->get();
+        $layanan = DB::table("$slug")
+        ->join('pemohons','pemohons.id','=',"$slug.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->where("$slug.id_pemohon",$id_pemohon)
+        ->get();
+        // dd($layanan);
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'layanan' => $layanan,
+            'daerah' => $daerah
+        ];
+        $pdf = PDF::loadview("surat/$slug",$data);
+        // return $pdf->stream("$slug-pdf-$id");
+        return $pdf->stream();
+        // return view("surat/$slug",$data);
+    }
     public function cetakSKSubayanan($slug2,$id)
     {
         $id_pemohon = substr($id,16,16);
@@ -409,6 +435,29 @@ class AdminController extends Controller
             'daerah' => $daerah
         ];
         return view("surat/$slug2",$data);
+    }
+    public function cetakSKSubayananPDF($slug2,$id)
+    {
+        $id_pemohon = substr($id,16,16);
+        $layanan = DB::table("$slug2")
+        ->join('pemohons','pemohons.id','=',"$slug2.id_pemohon")
+        ->join('daerahs','daerahs.id','=','pemohons.daerah_id')
+        ->join('pelayanans','pelayanans.id','=','pemohons.pelayanan_id')
+        ->join('sublayanans','sublayanans.id','=','pemohons.sublayanan_id')
+        ->where("$slug2.id_pemohon",$id_pemohon)
+        ->get();
+        $daerah = Daerah::where('nama_daerah','Pemalang')->get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'layanan' => $layanan,
+            'daerah' => $daerah
+        ];
+        $pdf = PDF::loadview("surat/$slug2",$data)->setPaper('letter','potrait');
+        // return $pdf->download("$slug2-pdf-$id");
+        return $pdf->stream();
     }
     public function editAkunKecamatan(Request $request)
     {
@@ -478,15 +527,18 @@ class AdminController extends Controller
        
         
     }
-    public function noSKLayanan($id,$slug,Request $request)
+    public function noSKLayanan($kode,$id,$slug,Request $request)
     {
         // dd(implode("/",$request->no_sk));
         // dd(DB::table("$slug")->where('id',$id)->get());
         $add    =   DB::table("$slug")->where('id',$id)->update([
             'no_sk' => implode("/",$request->no_sk),
-            'status' => "Sudah ada nomor SK",
+            // 'status' => "Sudah ada nomor SK",
             'pesan' => "Sudah diberi nomor SK, Tinggal tunggu disetujui maka surat izin akan diterbitkan",
             'updated_at' => now(+7.00)
+        ]);
+        Pemohon::where('kode',$kode)->update([
+            'status' => "Sudah ada nomor SK",
         ]);
         return redirect()->back()->with('sukses','Berhasil menambah No.SK');
     }

@@ -45,10 +45,15 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::get('/layanan/{slug}/{id}','AdminController@dataLayananDetail');
         Route::get('/layanan/{slug}/{id}/setujui','AdminController@setujuPermohonan');
         Route::get('/layanan/{slug}/{id}/cetak','AdminController@cetakSKLayanan');
+
+        Route::get('/layanan/{slug}/{id}/pdf','AdminController@cetakSKLayananPDF');
+
         Route::get('/sublayanan/{slug1}/{slug2}','AdminController@dataSublayanan');
         Route::get('/sublayanan/{slug2}/{id}/detail','AdminController@dataSublayananDetail');
         Route::get('/sublayanan/{slug2}/{id}/setujui','AdminController@setujuPermohonan');
         Route::get('/sublayanan/{slug2}/{id}/cetak','AdminController@cetakSKSubayanan');
+        Route::get('/sublayanan/{slug2}/{id}/pdf','AdminController@cetakSKSubayananPDF');
+
         Route::get('/profil','AdminController@ubahDataAdmin');
         Route::get('/pelayanan','AdminController@pelayanan');
         Route::post('/pelayanan/ubah/{slug}','AdminController@ubahKetPelayanan');
@@ -58,7 +63,7 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::post('/profil/akun','AdminController@editAkunKecamatan');
         Route::post('/profil/password','AdminController@editAkunKecamatanPass');
         Route::post('/profil/info/{id}','AdminController@editInfoKecamatan');
-        Route::post('/formulir/{id}/{slug}/no-sk','AdminController@noSKLayanan')->name('no_sk');
+        Route::post('/formulir/{kode}/{id}/{slug}/no-sk','AdminController@noSKLayanan')->name('no_sk');
     });
     Route::group(['prefix' => 'desa','middleware'=>'desa'], function () {
         Route::get('/','DesaController@homeDesa');
@@ -72,7 +77,8 @@ Route::group(['middleware' => ['sesi']], function () {
         Route::post('/formulir/rumahMakan','DesaController@rmForm')->name('formulir_rm');
         Route::post('/formulir/gelanggangketangkasan','DesaController@gkForm')->name('formulir_gk');
         Route::post('/formulir/atraksiwisata','DesaController@awForm')->name('formulir_aw');
-
+        Route::get('/data','DesaController@data');
+        Route::get('/data/{slug}','DesaController@dataPelayanan');
 
         Route::post('/profil/akun','DesaController@editAkunDesa')->name('akunDesa');
         Route::post('/profil/akun/pass','DesaController@editPassAdminDesa')->name('passAdminDesa');

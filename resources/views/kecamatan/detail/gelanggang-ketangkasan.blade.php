@@ -115,7 +115,7 @@
             </div>
             <div class="modal-body">
             @foreach($id as $id)
-                <form action="{{route('no_sk',[$id->pemohon_id,$item->slug])}}" method="post">
+                <form action="{{route('no_sk',[$item->kode,$id->pemohon_id,$item->slug])}}" method="post">
             @endforeach
                     @csrf
                     <div class="form-group">

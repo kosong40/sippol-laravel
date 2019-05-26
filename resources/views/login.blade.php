@@ -49,7 +49,7 @@
                     <div class="login-form-body">
                         <div class="form-gp">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" name="username" id="exampleInputEmail1" autocomplete="on">
+                            <input type="text" name="username" id="exampleInputEmail1" autocomplete="on" value="{{old('username')}}">
                             <i class="ti-user"></i>
                             
                         </div>
@@ -58,6 +58,16 @@
                             <input type="password" name="password" id="exampleInputPassword1" autocomplete="off">
                             <a onclick="show()" href="#"><i class="ti-lock"> </i></a>
                         </div>
+                        @php
+                            $acak = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789"),0,6);
+                        @endphp
+                        <h1 align="center" oncopy="return false" ><label for="" class="label-control">{{$acak}}</label></h1><br>
+                        <div class="form-gp">
+                            <input type="hidden" name="kode_capcha" id="exampleInputPassword1" value="{{$acak}}">
+                            <label for="kode">Kode</label>
+                            <input onpaste="return false" type="text" name="kode" id="kode" autocomplete="off">
+                        </div>
+                        <p align="center" style="color:red">Kode menggunakan huruf kapital</p><br><br>
                         @csrf
                         <div class="submit-btn-area">
                             <button id="form_submit" type="submit">Masuk <i class="ti-arrow-right"></i></button>
@@ -69,8 +79,15 @@
                         </div>
                             @endforeach
                         @endif
-                            @if($errors->get('password'))
+                        @if($errors->get('password'))
                             @foreach ($errors->get('password') as $pesan)
+                        <div class="alert alert-danger" role="alert">
+                            <p align="center">{{$pesan}}</p>
+                        </div>
+                            @endforeach
+                        @endif
+                        @if($errors->get('kode'))
+                            @foreach ($errors->get('kode') as $pesan)
                         <div class="alert alert-danger" role="alert">
                             <p align="center">{{$pesan}}</p>
                         </div>

@@ -43,7 +43,7 @@
     </style>
 </head>
 
-<body class="hold-transition skin-yellow-light layout-top-nav">
+<body class="hold-transition skin-green-light layout-top-nav">
     <div class="row" style="background-color:#ddd !important">
         <div class="col-sm-2">
             <img id="img-logo-atas" src="{{url('img/logo_pemalang_lg.png')}}" class="img-responsive">
@@ -71,6 +71,9 @@
                     </div>
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{{url('desa/data')}}" id="nav-text"><span class="fa fa-file"></span> Data Perlayanan</a>
+                            </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="nav-text"><span class="fa fa-info"></span>&nbsp;Formulir Pelayanan<span class="caret"></span></span></a>
                                 <ul class="dropdown-menu" role="menu">
@@ -79,6 +82,7 @@
                                     @endforeach
                                 </ul>
                             </li>
+                            
                             <li>
                             <a href="{{url('desa/pengaturan')}}" id="nav-text"><span class="fa fa-wrench"></span>&nbsp;Pengaturan</span></a>
                             </li>

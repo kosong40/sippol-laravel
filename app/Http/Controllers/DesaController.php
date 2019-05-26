@@ -380,7 +380,7 @@ class DesaController extends Controller
         $path_d =   "berkas/iumk/d/";
         $nama_d =   $id_pemohon."_foto.".$d->getClientOriginalExtension();
         $request->file('foto')->move($path_d,$nama_d);
-        DB::table('izin-usaha-mirko-dan-kecil')->insert([
+        DB::table('izin-usaha-mikro-dan-kecil')->insert([
             'id_pemohon'    => $id_pemohon,
             'nama_usaha'    => $request['nama_usaha'],
             'alamat_usaha'  =>  $request['alamat_usaha'],
@@ -691,5 +691,40 @@ class DesaController extends Controller
             'updated_at'   => null
         ]);
         return redirect()->back()->with('sukses','Berhasil mengajukan permohonan Izin Atraksi Wisata');
+    }
+
+
+
+
+    // buat daftar data layanan
+    public function data()
+    {
+        $sidebar    =   Pelayanan::get();
+        $pemohon    =   Pemohon::get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'pelayanan' =>  $sidebar,
+            'sidebar'   =>  $sidebar,
+            'pemohon'   =>  $pemohon,
+        ];
+        return view('desa/data',$data);
+    }
+    public function dataPelayanan($slug)
+    {
+        $sidebar    =   Pelayanan::get();
+        $pemohon    =   Pemohon::get();
+        $data = [
+            'nama'      =>  session('nama'),
+            'username'  =>  session('username'),
+            'level'     =>  session('level'),
+            'token'     =>  session('token'),
+            'pelayanan' =>  Pelayanan::where('slug',$slug)->get(),
+            'sidebar'   =>  $sidebar,
+            'pemohon'   =>  $pemohon,
+        ];
+        return view('desa/dataPelayanan',$data);
     }
 }

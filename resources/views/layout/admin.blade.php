@@ -72,7 +72,7 @@
             <ul class="nav navbar-nav">
               <li>
                 <a href="{{url('kecamatan/layanan')}}" id="nav-text">
-                  <i class="fa fa-info"></i>
+                  <i class="fa fa-file"></i>
                   <span>Data Layanan</span>
                 </a>
               </li>
